@@ -28,10 +28,10 @@
 
 ## Use Cases: 
 
-### Case 1: Jack wants to check the firewall server for warning and error messages in the last 15 minutes
+**Case 1:Check the firewall server for warning and error messages in the last 15 minutes**
 
-### Case 2: Tukaram wants to get the last 15 minutes log of the dhcpd daemon from the DNS server 
+**Case 2: Get the last 15 minutes log of the dhcpd daemon from the DNS server**
 
-### Case 3: Ahmad wants to get error logs of last 3 hours from all servers under his jurisdiction 
+**Case 3: Get error logs of last 3 hours from all servers**
 
-### Case 4: Jill wants to monitor the database server for errors and wants to be notified if an error occurs 
+**Case 4: Mnitor the database server and notify if an error occurs**
