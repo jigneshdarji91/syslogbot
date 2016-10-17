@@ -1,4 +1,4 @@
-
+var SyslogBot = require("./SyslogBot.js");
 var Botkit = require('botkit');
 var Forecast = require('forecast.io');
 var options = {APIKey:process.env.FORECASTTOKEN};
@@ -25,40 +25,9 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
     bot.reply(message, w);
   });
 
-  if (isMessageTypeCommand(message.match[0])) {
-    console.log('Type: Command');
-  } else if (isMessageTypeQuery(message.match[0])) {
-    console.log('Type: Query');
-  } else if (isMessageTypeMonitor(message.match[0])){
-    console.log('Type: Monitor');
-  } else if (isMessageTypeSummary(message.match[0])) {
-    console.log('Type: Summary');
-  }
+  console.log("Message Type: " + SyslogBot.getMessageType(message.match[0]));
 });
 
-function isMessageTypeCommand(message) {
-  if (message.indexOf('manage') != -1) {
-    return true;
-  }
-}
-
-function isMessageTypeQuery(message) {
-  if (message.indexOf('query') != -1) {
-    return true;
-  }
-}
-
-function isMessageTypeMonitor(message) {
-  if (message.indexOf('monitor') != -1) {
-    return true;
-  }
-}
-
-function isMessageTypeSummary(message) {
-  if (message.indexOf('summary') != -1) {
-    return true;
-  }
-}
 
 // example for calling weather api
 function getWeather(callback)
