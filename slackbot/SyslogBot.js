@@ -1,4 +1,5 @@
 var Parser = require("./parser.js");
+var QueryGenerator = require("./queryGenerator.js");
 var Botkit = require('botkit');
 var Forecast = require('forecast.io');
 var options = {APIKey:process.env.FORECASTTOKEN};
@@ -25,7 +26,12 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
     bot.reply(message, w);
   });
 
-  Parser.parseMessage(message.match[0]);
+  var object = Parser.parseMessage(message.match[0]);
+  if (object.type == "query"
+      || object.type == "monitor"
+      || object.type == "summary") {
+    QueryGenerator.objectToQuery(object);
+  }
 });
 
 
