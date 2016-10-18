@@ -25,7 +25,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
     bot.reply(message, w);
   });
 
-  console.log("Message Type: " + SyslogBot.getMessageType(message.match[0]));
+  SyslogBot.parseMessage(message.match[0]);
 });
 
 

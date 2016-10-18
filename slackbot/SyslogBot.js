@@ -1,5 +1,30 @@
 function parseMessage(message) {
-  getMessageType(message);
+  var object = {};
+  var messageType = getMessageType(message);
+  if (messageType == "none") {
+    return null;
+  }
+  var fields = message.split(" ");
+  for (i = 0; i < fields.length; i++) {
+    console.log("Field: " + fields[i]);
+    if (!isFieldMesssageType(fields[i])) {
+      var type = fields[i].split("=");
+      console.log("field split: " + type);
+      var value = type[1].split(",");
+      object[type[0]] = value;
+    } else {
+      object.type = messageType;
+    }
+  }
+
+  console.log("Object: " + JSON.stringify(object))
+}
+
+function isFieldMesssageType (field) {
+  if (getMessageType(field) == "none") {
+    return false;
+  }
+  return true;
 }
 
 function getMessageType (message) {
