@@ -10,7 +10,11 @@
 
 - Rebase with master
 ```
-git rebase master
+git checkout master
+git pull
+git checkout <branch>
+git rebase origin/master
+git push --force
 ```
 
 - Test your development.
