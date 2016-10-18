@@ -1,71 +1,50 @@
-function parseMessage(message) {
-  var object = {};
-  var messageType = getMessageType(message);
-  if (messageType == "none") {
-    return null;
-  }
-  var fields = message.split(" ");
-  for (i = 0; i < fields.length; i++) {
-    console.log("Field: " + fields[i]);
-    if (!isFieldMesssageType(fields[i])) {
-      var type = fields[i].split("=");
-      console.log("field split: " + type);
-      var value = type[1].split(",");
-      object[type[0]] = value;
-    } else {
-      object.type = messageType;
-    }
-  }
+var Parser = require("./parser.js");
+var Botkit = require('botkit');
+var Forecast = require('forecast.io');
+var options = {APIKey:process.env.FORECASTTOKEN};
+var forecast = new Forecast(options);
 
-  console.log("Object: " + JSON.stringify(object))
-}
+//var childProcess = require("child_process");
 
-function isFieldMesssageType (field) {
-  if (getMessageType(field) == "none") {
-    return false;
-  }
-  return true;
-}
+var controller = Botkit.slackbot({
+  debug: false
+  //include "log: false" to disable logging
+  //or a "logLevel" integer from 0 to 7 to adjust logging verbosity
+});
 
-function getMessageType (message) {
-  if (isMessageTypeCommand(message)) {
-    return "command";
-  } else if (isMessageTypeQuery(message)) {
-    return "query";
-  } else if (isMessageTypeMonitor(message)){
-    return "monitor"
-  } else if (isMessageTypeSummary(message)) {
-    return "summary";
-  } else {
-    return "none";
-  }
-}
+// connect the bot to a stream of messages
+controller.spawn({
+  token: process.env.ALTCODETOKEN,
+}).startRTM()
 
-function isMessageTypeCommand (message) {
-  if (message.indexOf('manage') != -1) {
-    return true;
-  }
-}
+// give the bot something to listen for.
+//controller.hears('string or regex',['direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], function(bot,message) {
+  console.log('someone mentioned me! Yay! message: ' + message.match[0]);
+  getWeather(function(w) {
+    bot.reply(message, w);
+  });
 
-function isMessageTypeQuery (message) {
-  if (message.indexOf('query') != -1) {
-    return true;
-  }
-}
+  Parser.parseMessage(message.match[0]);
+});
 
-function isMessageTypeMonitor (message) {
-  if (message.indexOf('monitor') != -1) {
-    return true;
-  }
-}
 
-function isMessageTypeSummary (message) {
-  if (message.indexOf('summary') != -1) {
-    return true;
-  }
-}
-
-module.exports = {
-  parseMessage: parseMessage,
-  getMessageType: getMessageType
+// example for calling weather api
+function getWeather(callback)
+{
+  var latitude = "48.208579"
+  var longitude = "16.374124"
+  var message = "Hey, @git_bot The weather is "
+  forecast.get(latitude, longitude, function (err, res, data)
+  {
+    console.log('message generated: ' + message);
+    if (err) throw err;
+    //console.log('res: ' + JSON.stringify(res));
+    //console.log('data: ' + JSON.stringify(data));
+    w = data.currently.summary + " and feels like " +
+    data.currently.apparentTemperature;
+    message = message + w;
+    console.log('message generated: ' + message);
+    callback(message);
+  });
 }
