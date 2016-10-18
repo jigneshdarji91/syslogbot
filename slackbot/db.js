@@ -1,4 +1,5 @@
 var mysql      = require('mysql');
+
 var logDB_connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
