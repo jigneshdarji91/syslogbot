@@ -6,13 +6,20 @@ var logDB_connection = mysql.createConnection({
   database : 'slackBotLog_db'
 });
 
-var logDB_connection = mysql.createConnection({
+var userDB_connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'sa123',
   database : 'slackBotUser_db'
 });
 
+function getLogDBConnector() {
+	return logDB_connection;
+}
+
+function getUserDBConnector() {
+	return userDB_connection;
+}
 
 function executeQuery (db_connection, query) {
 	db_connection.connect();
@@ -25,5 +32,5 @@ function executeQuery (db_connection, query) {
 	db_connection.end();
 }
 
-'SELECT server_ip, log_message from LogInfo'
+executeQuery(getLogDBConnector() , 'SELECT server_ip, log_message from LogInfo')
 
