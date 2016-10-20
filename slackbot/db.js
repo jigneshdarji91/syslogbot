@@ -22,17 +22,46 @@ function getUserDBConnector() {
 	return userDB_connection;
 }
 
-function executeQuery (db_connection, query) {
+function executeLogQuery (query, resultHandler) {
+	var db_connection = getLogDBConnector();
 	db_connection.connect();
 	db_connection.query(query, function(err, rows, fields) {
-  		if (!err)
-    		console.log('The solution is: ', rows);
+  		if (!err){
+    		var results = new Array(rows.length);
+    		var arrayLength = rows.length;
+    		for(var i = 0; i < arrayLength; i++){
+    			var result = new Array(2);
+    			result[0] = rows[i].server_ip;
+    			result[1] = rows[i].log_message;
+    			results[i] = result;
+    		}
+    		resultHandler(results);
+  		}
   		else
-    		console.log('Error while performing Query.');
+    		resultHandler(null);
+	});
+	db_connection.end();
+}
+
+function executeServerInfoQuery (query, resultHandler) {
+	var db_connection = getUserDBConnector();
+	db_connection.connect();
+	db_connection.query(query, function(err, rows, fields) {
+  		if (!err){
+    		resultHandler('Success');
+  		}
+  		else
+    		resultHandler('Error');
 	});
 	db_connection.end();
 }
 
 
-executeQuery(getLogDBConnector() , 'SELECT server_ip, log_message from LogInfo');
+module.exports = {
+  getLogDBConnector: getLogDBConnector,
+  getUserDBConnector: getUserDBConnector,
+  executeLogQuery: executeLogQuery,
+  executeServerInfoQuery: executeServerInfoQuery
+}
+
 
