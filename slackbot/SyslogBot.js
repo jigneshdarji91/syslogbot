@@ -3,9 +3,6 @@ var Parser = require("./parser.js");
 var QueryGenerator = require("./queryGenerator.js");
 var CommandGenerator = require("./commandGenerator.js");
 var Botkit = require('botkit');
-var Forecast = require('forecast.io');
-var options = {APIKey:process.env.FORECASTTOKEN};
-var forecast = new Forecast(options);
 var userName = '';
 
 //var childProcess = require("child_process");
@@ -25,51 +22,35 @@ controller.spawn({
 //controller.hears('string or regex',['direct_message','direct_mention','mention'],function(bot,message) {
 controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], function(bot,message) {
 
-  slack.users.info({
-    token: process.env.ALTCODETOKEN,
-    user: message.user
-  }, (err, data) => {
-    if (err) throw err
-    console.log("user name is: ", data.user.name);
-    userName = data.user.name;
-  })
-
-
-  console.log('someone mentioned me! Yay! message: ' + message.match[0]);
-  getWeather(function(w) {
-    bot.reply(message, w);
-  });
-
-  var object = Parser.parseMessage(message.match[0]);
-  console.log('here type is:', object.type)
-  if (object.type == "query"
-      || object.type == "monitor"
-      || object.type == "summary"
-      || object.type == "command") {
-    var botReply = CommandGenerator.objectToCommand(object, 'aparnap754', function(results){
-      //console.log('Result from database',results);
-      bot.reply(message, results);
-    });    
-  }
-});
-
-
-// example for calling weather api
-function getWeather(callback)
-{
-  var latitude = "48.208579"
-  var longitude = "16.374124"
-  var message = "Hey, @git_bot The weather is "
-  forecast.get(latitude, longitude, function (err, res, data)
+  // Function to get user name
+  var getUserName = function(callback)
   {
-    console.log('message generated: ' + message);
-    if (err) throw err;
-    //console.log('res: ' + JSON.stringify(res));
-    //console.log('data: ' + JSON.stringify(data));
-    w = data.currently.summary + " and feels like " +
-    data.currently.apparentTemperature;
-    message = message + w;
-    console.log('message generated: ' + message);
-    callback(message);
-  });
-}
+    slack.users.info({
+      token: process.env.ALTCODETOKEN,
+      user: message.user
+    }, (err, data) => {
+      if (err) throw err
+      userName = data.user.name;
+      callback(userName);
+    }); 
+  }
+
+  var userName = function( username ) {
+    console.log("User Name: " + username);
+    var object = Parser.parseMessage(message.match[0]);
+    console.log('here type is:', object.type)
+    if (object.type == "query"
+        || object.type == "monitor"
+        || object.type == "summary"
+        || object.type == "command") {
+
+      console.log("userName before sending to command generator: ", userName)
+      var botReply = CommandGenerator.objectToCommand(object, userName, function(results){
+        //console.log('Result from database',results);
+        bot.reply(message, results);
+      });    
+    }
+  };
+
+  getUserName( userName );     
+});
