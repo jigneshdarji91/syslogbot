@@ -1,3 +1,4 @@
+var slack = require('slack')
 var Parser = require("./parser.js");
 var Botkit = require('botkit');
 var Forecast = require('forecast.io');
@@ -20,6 +21,16 @@ controller.spawn({
 // give the bot something to listen for.
 //controller.hears('string or regex',['direct_message','direct_mention','mention'],function(bot,message) {
 controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], function(bot,message) {
+
+  slack.users.info({
+    token: process.env.ALTCODETOKEN,
+    user: message.user
+  }, (err, data) => {
+    if (err) throw err
+    console.log("user name is: ", data.user.name);
+  })
+
+
   console.log('someone mentioned me! Yay! message: ' + message.match[0]);
   getWeather(function(w) {
     bot.reply(message, w);
