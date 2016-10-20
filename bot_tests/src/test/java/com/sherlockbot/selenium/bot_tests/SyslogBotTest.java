@@ -1,6 +1,5 @@
 package com.sherlockbot.selenium.bot_tests;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+
 import static org.junit.Assert.*;
 
 import java.io.File;
@@ -8,9 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -25,7 +22,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class WhenSearchingForDrupalUsingGoogleTest {
+public class SyslogBotTest {
 	//private String baseUrl;
 	private static WebDriver driver;
 	private static WebDriverWait wait;
@@ -50,8 +47,8 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 
 		// Type in our test user login info.
 		// We will create a test user for now, but we should plan on getting it work using api tokens. 
-		email.sendKeys("youremail@ncsu.edu");
-		pw.sendKeys("yoursupersecretpass");
+		email.sendKeys("yourname@ncsu.edu");
+		pw.sendKeys("yoursecretkey");
 
 		// Click
 		WebElement signin = driver.findElement(By.id("signin_btn"));
@@ -73,7 +70,7 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 
 		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("manage server-add 10.0.0.2 dbserver");
+		messageBot.sendKeys("manage add-server=10.0.0.2 dbserver");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
@@ -81,9 +78,12 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 		WebElement msg = driver.findElement(
 			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
 			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
-			By.xpath("//span[@class='message_body' and contains(. , 'server added')]/preceding-sibling::a[text()='syslog bot']"));
+			By.xpath("//span[@class='message_body' and contains(. , 'Server added')]/preceding-sibling::a[text()='syslog bot']"));
 		assertNotNull(msg);
+		
+
 	}
+	
 	
 	// Sad path of manage command. i.e. what if user screws up after writing manage
 	@Test
@@ -118,8 +118,8 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 		WebElement msg = driver.findElement(		//replace by query keyword
 			By.xpath("//span[@class='message_body' and contains(.,'query success keyword')]/preceding-sibling::a[text()='syslog bot']"));
 		assertNotNull(msg);
-		
 	}
+	
 	@Test
 	public void testQuerySad() {
 		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
@@ -170,7 +170,6 @@ public class WhenSearchingForDrupalUsingGoogleTest {
 		WebElement msg = driver.findElement(
 			By.xpath("//span[@class='message_body' and contains(.,'Invalid monitor command')]/preceding-sibling::a[text()='syslog bot']"));
 		assertNotNull(msg);
-		
 	}
 	
 	
