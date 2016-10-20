@@ -46,8 +46,10 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
       || object.type == "monitor"
       || object.type == "summary"
       || object.type == "command") {
-    console.log("user name later is: ", userName);
-    CommandGenerator.objectToCommand(object, 'aparnap754');
+    var botReply = CommandGenerator.objectToCommand(object, 'aparnap754', function(results){
+      //console.log('Result from database',results);
+      bot.reply(message, results);
+    });    
   }
 });
 
