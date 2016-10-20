@@ -1,9 +1,12 @@
 var slack = require('slack')
 var Parser = require("./parser.js");
+var QueryGenerator = require("./queryGenerator.js");
+var CommandGenerator = require("./commandGenerator.js");
 var Botkit = require('botkit');
 var Forecast = require('forecast.io');
 var options = {APIKey:process.env.FORECASTTOKEN};
 var forecast = new Forecast(options);
+var userName = '';
 
 //var childProcess = require("child_process");
 
@@ -28,6 +31,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
   }, (err, data) => {
     if (err) throw err
     console.log("user name is: ", data.user.name);
+    userName = data.user.name;
   })
 
 
@@ -36,7 +40,15 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
     bot.reply(message, w);
   });
 
-  Parser.parseMessage(message.match[0]);
+  var object = Parser.parseMessage(message.match[0]);
+  console.log('here type is:', object.type)
+  if (object.type == "query"
+      || object.type == "monitor"
+      || object.type == "summary"
+      || object.type == "command") {
+    console.log("user name later is: ", userName);
+    CommandGenerator.objectToCommand(object, 'aparnap754');
+  }
 });
 
 

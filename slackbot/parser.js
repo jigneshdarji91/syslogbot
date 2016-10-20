@@ -10,7 +10,7 @@ function parseMessage(message) {
     if (!isFieldMesssageType(fields[i])) {
       var type = fields[i].split("=");
       console.log("field split: " + type);
-      var value = type[1].split(",");
+      var value = type[1];
       object[type[0]] = value;
     } else {
       object.type = messageType;
