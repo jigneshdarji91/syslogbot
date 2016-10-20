@@ -1,5 +1,6 @@
 var Parser = require("./parser.js");
 var QueryGenerator = require("./queryGenerator.js");
+var SyslogDB = require("./db.js")
 var Botkit = require('botkit');
 var Forecast = require('forecast.io');
 var options = {APIKey:process.env.FORECASTTOKEN};
@@ -30,7 +31,10 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
   if (object.type == "query"
       || object.type == "monitor"
       || object.type == "summary") {
-    QueryGenerator.objectToQuery(object);
+    var query = QueryGenerator.objectToQuery(object);
+    SyslogDB.executeLogQuery(query, function(result) {
+      console.log("query results: " + result)
+    })
   }
 });
 
