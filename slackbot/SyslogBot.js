@@ -31,7 +31,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
       var response = 'Error finding the requested Data';
       if(result != null) {
         response = processResults(result);
-        bot.reply(message, response);
+        //bot.reply(message, response);
       }
       bot.reply(message, response);
     });
@@ -40,7 +40,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
 
 function processResults(results) {
   var responseMap = {};
-  var response = 'Success';
+  var response = '';
   var arrayLength = results.length;
   for(var i = 0; i < arrayLength; i++){
       var result = results[i];
@@ -53,9 +53,18 @@ function processResults(results) {
       }
     }
 
+    var a = 0;
+
     for (var key in responseMap)
     {
-        console.log('—' + key + ':' + responseMap[key]);
+      if(a == 0) {
+        response = response +"*"+key + "* :\n" +responseMap[key];
+      }
+      else{
+        response = response +"\n*"+key + "* :\n"+responseMap[key]; 
+      }
+      //console.log('—' + key + ':' + responseMap[key]);
+      a = a +1;
     }
     return response;
 }
