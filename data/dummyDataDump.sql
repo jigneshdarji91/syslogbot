@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS `LogInfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `LogInfo` (
-  `server_ip` varchar(256) DEFAULT NULL,
-  `loglevel` varchar(20) DEFAULT NULL,
+  `server` varchar(256) DEFAULT NULL,
+  `log_level` varchar(20) DEFAULT NULL,
   `app` varchar(256) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `log_message` varchar(1000) DEFAULT NULL
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-18 11:39:40
+-- Dump completed on 2016-10-20 14:27:20
