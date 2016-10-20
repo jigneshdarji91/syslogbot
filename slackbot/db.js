@@ -37,8 +37,10 @@ function executeLogQuery (query, resultHandler) {
     		}
     		resultHandler(results);
   		}
-  		else
+  		else{
+  			console.log('Error Executing Query');
     		resultHandler(null);
+  		}
 	});
 	db_connection.end();
 }
