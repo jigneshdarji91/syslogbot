@@ -31,7 +31,7 @@ function executeLogQuery (query, resultHandler) {
     		var arrayLength = rows.length;
     		for(var i = 0; i < arrayLength; i++){
     			var result = new Array(2);
-    			result[0] = rows[i].server_ip;
+    			result[0] = rows[i].server;
     			result[1] = rows[i].log_message;
     			results[i] = result;
     		}
