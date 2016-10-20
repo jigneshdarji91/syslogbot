@@ -7,15 +7,12 @@ function parseMessage(message) {
 
   var fields = message.split(" ");
   for (i = 0; i < fields.length; i++) {
-    console.log("Field: " + fields[i]);
     if (!isFieldMesssageType(fields[i])) {
       var type = fields[i].split("=");
-      console.log("field split: " + type);
       var value = type[1].split(",");
       object[type[0]] = value;
     }
   }
-
   console.log("Object: " + JSON.stringify(object))
   return object;
 }
