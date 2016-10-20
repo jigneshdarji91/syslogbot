@@ -1,11 +1,10 @@
 function parseMessage(message) {
   var object = {};
-  object.type = messageType;
-  var messageType = getMessageType(message);
-  if (messageType == "none") {
+  object.type = getMessageType(message);
+  if (object.type == "none") {
     return object;
   }
-  
+
   var fields = message.split(" ");
   for (i = 0; i < fields.length; i++) {
     console.log("Field: " + fields[i]);
