@@ -3,14 +3,14 @@ var mysql = require('mysql');
 var logDB_connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'appu123',
+  password : 'sa123',
   database : 'slackBotLog_db'
 });
 
 var userDB_connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'appu123',
+  password : 'sa123',
   database : 'slackBotUser_db'
 });
 
