@@ -6,7 +6,7 @@
 /*this function generates a mySQL query from message object*/
 function objectToQuery(object) {
     console.log("object: " + JSON.stringify(object));
-    var table_name = "logtable";// subject to change
+    var table_name = "LogInfo";// subject to change
     var first_entry = 1;
     var count_flag = 0;
     var limit;
@@ -27,13 +27,13 @@ function objectToQuery(object) {
             if(!first_entry){
                 query = query + " AND ";
             }
-            first_entry = 0;  	
+            first_entry = 0;    
 
             //console.log(key + " -> " + object[key]);
             //if (key != 'count'){
             query = query + key + " LIKE ";
 
-            for(i = 0; i < object[key].length; i++){    		
+            for(i = 0; i < object[key].length; i++){            
                 query = query + object[key][i];
                 if(i != object[key].length - 1){
                     query = query + " OR ";

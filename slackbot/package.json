@@ -12,6 +12,7 @@
     "botkit": "^0.2.2",
     "forecast.io": "0.0.9",
     "slackbots": "^0.5.1",
+    "slack":"^2.0.0",
     "mysql": "^2.5.4"
   }
 }
