@@ -1,22 +1,22 @@
 # Syslog Bot - Bot Milestone
 
 
-## Team 
+## Team
 
 <table>
-<tr> 
+<tr>
 <td> Aparna Patil </td>
 <td> akpatil </td>
 </tr>
-<tr> 
+<tr>
 <td> Jignesh Darji </td>
 <td> jndarji </td>
 </tr>
-<tr> 
+<tr>
 <td> Prathamesh Ghanekar </td>
 <td>  pghanek </td>
 </tr>
-<tr> 
+<tr>
 <td> Saurabh Sakpal </td>
 <td> ssakpal </td>
 </tr>
@@ -35,8 +35,8 @@
 	User will write following command to add new server<br>
 	@syslogbot manage add-server=<SERVER_NAME> ip=<IP_ADDRESS>
 - Subflows<br>
-	[S1] Bot will add the server into user info database<br>
-	[S2] Bot will post reply
+	[S1] Bot will parse the message to find message type. If it's a command message, it will create the query to insert or delete a server [S2]. <br>
+	[S2] Bot will create and run a query to add the provided server to the DB <br>
 - Alternative Flows<br>
 	[E1] Error in adding server
 
@@ -48,8 +48,8 @@
 	User will write following command to delete new server<br>
 	@syslogbot manage delete-server=<SERVER_NAME>
 - Subflows<br>
-	[S1] Bot will delete the server from user info database<br>
-	[S2] Bot will post reply
+	[S1] Bot will parse the message to find message type. Since it's a command message, it will create the query to insert or delete a server [S2] <br>
+	[S2] Bot will create and run a query to delete the provided server to the DB <br>
 - Alternative Flows<br>
 	[E1] Error in deleting server
 
@@ -62,8 +62,8 @@
 	User will write following command to query logs<br>
 	@syslogbot query server_ip=<IP_ADDRESS> loglevel=<LOG_LEVEL>
 - Subflows<br>
-	[S1] Bot will query the server from log database<br>
-	[S2] Bot will list logs depending upon the filter conditions
+	[S1] Bot will parse the message to find message type. Since it's a command message, it will create the query to insert or delete a server [S3] <br>
+	[S3] Bot will create a DB query to pull logs from the servers specified <br>
 - Alternative Flows<br>
 	[E1] User does not have access to server<br>
 	[E2] No logs in the database
@@ -81,7 +81,6 @@
 | SyslogBot.QueryLogsr.Test1   | Query logs from log database Valid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ERROR"               | List of logs from log database with corresponding server ip address. | List of logs from log database with corresponding server ip address. | PASS   |
 | SyslogBot.QueryLogsr.Test2   | Query logs from log database Invalid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ABC"               | Invalid Input.                                                       | Invalid Input.                                                       | PASS   |
 
-## Task Tracking -WORKSHEET.md ##
-[Link to WORKSHEET.md]()
+## Task Tracking - [Worksheet](WORKSHEET.md)
 ## Screencast ##
 [SCREENCAST]()
