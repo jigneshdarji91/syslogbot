@@ -39,7 +39,7 @@ function objectToCommand(object, user_name, resultHandler) {
         }
 
         console.log("Final query is :" + query);
-        database.executeServerInfoQuery(query, function(data){
+        database.executeServerInfoQuery(query, true, function(data){
           console.log(data);
           if(data === 'Success')
             resultHandler('Server added successfully.');
@@ -66,7 +66,7 @@ function objectToCommand(object, user_name, resultHandler) {
         }
 
         console.log("Final query is :"+query);
-        database.executeServerInfoQuery(query, function(data){
+        database.executeServerInfoQuery(query, false, function(data){
           console.log(data);
           if(data === 'Success')
             resultHandler('Server deleted successfully.');

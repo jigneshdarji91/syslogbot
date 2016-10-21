@@ -53,12 +53,18 @@ function executeLogQuery (query, resultHandler) {
 	//db_connection.end();
 }
 
-function executeServerInfoQuery (query, resultHandler) {
+function executeServerInfoQuery (query, isInsert, resultHandler) {
 	var db_connection = getUserDBConnector();
-	//db_connection.connect();
 	db_connection.query(query, function(err, rows, fields) {
+		console.log(rows);
   		if (!err){
-    		resultHandler('Success');
+  			if(rows.affectedRows == 0 && !isInsert) {
+  				resultHandler('Error');
+  			}
+  			else
+  			{
+    			resultHandler('Success');
+  			}
   		}
   		else
     		resultHandler('Error');

@@ -1,4 +1,5 @@
 function parseMessage(message) {
+  console.log("parseMessage: " + message)
   var object = {};
   object.type = getMessageType(message);
   if (object.type == "none") {
@@ -9,7 +10,7 @@ function parseMessage(message) {
   for (i = 0; i < fields.length; i++) {
     if (!isFieldMesssageType(fields[i])) {
       var type = fields[i].split("=");
-      var value = type[1].split(",");
+      var value = type[1 ].split(",");
       object[type[0]] = value;
     }
   }
