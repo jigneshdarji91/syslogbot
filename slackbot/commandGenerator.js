@@ -38,7 +38,7 @@ function objectToCommand(object, user_name, resultHandler) {
               }
         }
 
-        console.log("Final query is :"+query);
+        console.log("Final query is :" + query);
         database.executeServerInfoQuery(query, function(data){
           console.log(data);
           if(data === 'Success')

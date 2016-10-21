@@ -15,9 +15,9 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
-  //token: process.env.ALTCODETOKEN,
+  token: process.env.ALTCODETOKEN,
   //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
-  token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+  //token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
 }).startRTM()
 
 // give the bot something to listen for.
@@ -28,8 +28,9 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
   var getUserName = function(callback)
   {
     slack.users.info({
-      //token: process.env.ALTCODETOKEN,
-      token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+      token: process.env.ALTCODETOKEN,
+      //token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+      //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
       user: message.user
     }, (err, data) => {
       if (err) throw err
@@ -44,7 +45,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
     console.log('here type is:', object.type)
     if (object.type == "command") {
 
-      console.log("userName before sending to command generator: ", userName)
+      //console.log("userName before sending to command generator: ", userName)
       var botReply = CommandGenerator.objectToCommand(object, userName, function(results){
         //console.log('Result from database',results);
         bot.reply(message, results);
@@ -65,7 +66,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
       });
     }
   };
-
+  //SyslogDB.connectToDb();
   getUserName( userName );     
 });
 
@@ -77,6 +78,7 @@ function processResults(results) {
       var result = results[i];
       if (responseMap[result[0]] != null) {
         responseMap[result[0]] = responseMap[result[0]] + "\n" + result[1];
+        //console.log('—' + result[0] + ':' + result[1]);
       }
       else 
       {
@@ -94,7 +96,7 @@ function processResults(results) {
       else{
         response = response +"\n*"+key + "* :\n"+responseMap[key]; 
       }
-      //console.log('—' + key + ':' + responseMap[key]);
+      console.log('—' + key + ':' + responseMap[key]);
       a = a +1;
     }
     return response;
