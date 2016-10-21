@@ -1,24 +1,16 @@
-package com.sherlockbot.selenium.bot_tests;
+package test.java.com.sherlockbot.selenium.bot_tests;
 
 import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,11 +23,11 @@ public class SyslogBotTest {
 	@BeforeClass
     public static void openBrowser() {
 		//set path of chromedriver binary. Replace by firefox driver if that's more convenient.
-		System.setProperty("webdriver.chrome.driver", "C:/Program Files (x86)/chromedriver/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
 		driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         
-		driver.get("https://slackbotpracticeteam.slack.com/");
+		driver.get("https://bot-project-team.slack.com/");
 
 		// Wait until page loads and we can see a sign in button.
 		wait = new WebDriverWait(driver, 30);
@@ -47,8 +39,8 @@ public class SyslogBotTest {
 
 		// Type in our test user login info.
 		// We will create a test user for now, but we should plan on getting it work using api tokens. 
-		email.sendKeys("yourname@ncsu.edu");
-		pw.sendKeys("yoursecretkey");
+		email.sendKeys("stongao@ncsu.edu");
+		pw.sendKeys("testpw");
 
 		// Click
 		WebElement signin = driver.findElement(By.id("signin_btn"));
@@ -57,20 +49,19 @@ public class SyslogBotTest {
 		// Wait until we go to general channel.
 		wait.until(ExpectedConditions.titleContains("general"));
 
-	} 
-	
-	// Happy path of manage command
+	} 	
+	// Test add server command - positive test case
 	@Test
-	public void testManageHappy()
+	public void testAddServerPositive()
 	{
 
 		// Switch to #bots channel and wait for it to load.
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
 		wait.until(ExpectedConditions.titleContains("syslog"));
 
 		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("manage add-server=10.0.0.2 dbserver");
+		messageBot.sendKeys("manage add-server='my_web_server' ip='20.20.43.2'");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
@@ -78,133 +69,128 @@ public class SyslogBotTest {
 		WebElement msg = driver.findElement(
 			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
 			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
-			By.xpath("//span[@class='message_body' and contains(. , 'Server added')]/preceding-sibling::a[text()='syslog bot']"));
+			By.xpath("//span[@class='message_body' and contains(. , 'Server added successfully.')]/preceding-sibling::a[text()='syslogbot']"));
+		assertNotNull(msg);
+	}	
+	// Test add server command - negative test case
+	@Test
+	public void testAddServerNegative()
+	{
+
+		// Switch to #bots channel and wait for it to load.
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
+		wait.until(ExpectedConditions.titleContains("syslog"));
+
+		// Post your manage command
+		WebElement messageBot = driver.findElement(By.id("message-input"));
+		messageBot.sendKeys("manage add-server='my_web_server'");
+		messageBot.sendKeys(Keys.RETURN);
+
+		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
+
+		WebElement msg = driver.findElement(
+			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
+			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
+			By.xpath("//span[@class='message_body' and contains(. , 'Error adding server.')]/preceding-sibling::a[text()='syslogbot']"));
+		assertNotNull(msg);
+		
+
+	}	
+	// Test delete server command - positive test case
+	@Test
+	public void testDeleteServerPositive()
+	{
+
+		// Switch to #bots channel and wait for it to load.
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
+		wait.until(ExpectedConditions.titleContains("syslog"));
+
+		// Post your manage command
+		WebElement messageBot = driver.findElement(By.id("message-input"));
+		messageBot.sendKeys("manage delete-server='my_web_server'");
+		messageBot.sendKeys(Keys.RETURN);
+
+		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
+
+		WebElement msg = driver.findElement(
+			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
+			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
+			By.xpath("//span[@class='message_body' and contains(. , 'Server deleted successfully.')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
 
 	}
 	
-	
-	// Sad path of manage command. i.e. what if user screws up after writing manage
+	// Test delete server command - negative test case
 	@Test
-	public void testManageSad() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
+	public void testDeleteServerNegative()
+	{
+
+		// Switch to #bots channel and wait for it to load.
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
 		wait.until(ExpectedConditions.titleContains("syslog"));
 
-		// Type something
+		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("manage nothing just messing around");
+		messageBot.sendKeys("manage delete-server='not_valid'");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
 
 		WebElement msg = driver.findElement(
-			By.xpath("//span[@class='message_body' and contains(. ,'Invalid manage command')]/preceding-sibling::a[text()='syslog bot']"));
-		assertNotNull(msg);
-	}
-	
-	@Test
-	public void testQueryHappy() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
-		wait.until(ExpectedConditions.titleContains("syslog"));
-
-		// Type something
-		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("valid query command"); //Write valid command here
-		messageBot.sendKeys(Keys.RETURN);
-
-		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
-
-		WebElement msg = driver.findElement(		//replace by query keyword
-			By.xpath("//span[@class='message_body' and contains(.,'query success keyword')]/preceding-sibling::a[text()='syslog bot']"));
-		assertNotNull(msg);
-	}
-	
-	@Test
-	public void testQuerySad() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
-		wait.until(ExpectedConditions.titleContains("syslog"));
-
-		// Type something
-		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("invalid query command");
-		messageBot.sendKeys(Keys.RETURN);
-
-		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
-
-		WebElement msg = driver.findElement(
-			By.xpath("//span[@class='message_body' and contains(.,'Invalid query command')]/preceding-sibling::a[text()='syslog bot']"));
+			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
+			//If it has a preceding-sibling of name 'syslogbot' it is valid reply from syslog bot.
+			By.xpath("//span[@class='message_body' and contains(. , 'Error deleting server.')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
+
 	}
 	
+	// Test query log command - positive test case
 	@Test
-	public void testMonitorHappy() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
+	public void testQueryPositive()
+	{
+
+		// Switch to #bots channel and wait for it to load.
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
 		wait.until(ExpectedConditions.titleContains("syslog"));
 
-		// Type something
+		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("valid monitor command"); //put valid monitor command here
-		messageBot.sendKeys(Keys.RETURN);
-
-		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
-
-		WebElement msg = driver.findElement(		//replace by keyword that will be used
-			By.xpath("//span[@class='message_body' contains(.,'monitor added keyword')]/preceding-sibling::a[text()='syslog bot']"));
-		assertNotNull(msg);
-	}
-	
-	@Test
-	public void testMonitorSad() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
-		wait.until(ExpectedConditions.titleContains("syslog"));
-
-		// Type something
-		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("invalid monitor command");
+		messageBot.sendKeys("query server='10.10.1.2' log_level='ERROR'");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
 
 		WebElement msg = driver.findElement(
-			By.xpath("//span[@class='message_body' and contains(.,'Invalid monitor command')]/preceding-sibling::a[text()='syslog bot']"));
-		assertNotNull(msg);
-	}
-	
-	
-	@Test
-	public void testSummaryHappy() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
-		wait.until(ExpectedConditions.titleContains("syslog"));
-
-		// Type something
-		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("valid summary command"); // add a valid summary command here
-		messageBot.sendKeys(Keys.RETURN);
-
-		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
-
-		WebElement msg = driver.findElement(		//put in summary keyword here
-			By.xpath("//span[@class='message_body' and contains(.,'summary keyword')]/preceding-sibling::a[text()='syslog bot']"));
+			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
+			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
+			By.xpath("//span[@class='message_body' and contains(. , '10.10.1.2')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
+
 	}
 	
+	// Test query log command - negative test case
 	@Test
-	public void testSummarySad() {
-		driver.get("https://slackbotpracticeteam.slack.com/messages/@syslogbot/");
+	public void testQueryNegative()
+	{
+
+		// Switch to #bots channel and wait for it to load.
+		driver.get("https://bot-project-team.slack.com/messages/@syslogbot/");
 		wait.until(ExpectedConditions.titleContains("syslog"));
 
-		// Type something
+		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("invalid summary command"); 
+		messageBot.sendKeys("query server='10.10.1.2' log_level='ABC'");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
 
 		WebElement msg = driver.findElement(
-			By.xpath("//span[@class='message_body' and text() = 'Invalid summary command']/preceding-sibling::a[text()='syslog bot']"));
+			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
+			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
+			By.xpath("//span[@class='message_body' and contains(. , 'Error finding the requested Data')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
 	}

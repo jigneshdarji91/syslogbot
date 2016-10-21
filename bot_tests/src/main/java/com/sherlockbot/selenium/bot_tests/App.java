@@ -1,4 +1,4 @@
-package com.sherlockbot.selenium.bot_tests;
+package main.java.com.sherlockbot.selenium.bot_tests;
 
 /**
  * Hello world!
