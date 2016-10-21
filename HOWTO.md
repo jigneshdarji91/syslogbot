@@ -9,7 +9,7 @@
 
 - Finally import the dump files from the "Bot/data" folder
   There are two dump files in the data folder. Execute following commands to import the dump files :
-  "" and ""
+  " mysql -p -u %MYSQL_USER% slackBotLog_db < dummyDataDump.sql " and " mysql -p -u %MYSQL_USER% slackBotUser_db < dummyServerInfo.sql"
 
 - In the db.js file please update the following tokens to match the mysql user and password
   %MYSQL_USER% and %MYSQL_USER_PASSWORD%
