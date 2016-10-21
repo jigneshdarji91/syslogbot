@@ -81,7 +81,6 @@
 | SyslogBot.QueryLogsr.Test1   | Query logs from log database Valid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ERROR"               | List of logs from log database with corresponding server ip address. | List of logs from log database with corresponding server ip address. | PASS   |
 | SyslogBot.QueryLogsr.Test2   | Query logs from log database Invalid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ABC"               | Invalid Input.                                                       | Invalid Input.                                                       | PASS   |
 
-## Task Tracking -WORKSHEET.md ##
-[Link to WORKSHEET.md]()
+## Task Tracking - [Worksheet](WORKSHEET.md)
 ## Screencast ##
 [SCREENCAST]()
