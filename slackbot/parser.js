@@ -1,22 +1,18 @@
 function parseMessage(message) {
   var object = {};
-  var messageType = getMessageType(message);
-  if (messageType == "none") {
-    return null;
-  }
-  var fields = message.split(" ");
-  for (i = 0; i < fields.length; i++) {
-    console.log("Field: " + fields[i]);
-    if (!isFieldMesssageType(fields[i])) {
-      var type = fields[i].split("=");
-      console.log("field split: " + type);
-      var value = type[1];
-      object[type[0]] = value;
-    } else {
-      object.type = messageType;
-    }
+  object.type = getMessageType(message);
+  if (object.type == "none") {
+    return object;
   }
 
+  var fields = message.split(" ");
+  for (i = 0; i < fields.length; i++) {
+    if (!isFieldMesssageType(fields[i])) {
+      var type = fields[i].split("=");
+      var value = type[1].split(",");
+      object[type[0]] = value;
+    }
+  }
   console.log("Object: " + JSON.stringify(object))
   return object;
 }

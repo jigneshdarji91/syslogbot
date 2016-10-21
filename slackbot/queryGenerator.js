@@ -6,7 +6,7 @@
 /*this function generates a mySQL query from message object*/
 function objectToQuery(object) {
     console.log("object: " + JSON.stringify(object));
-    var table_name = "logtable";// subject to change
+    var table_name = "LogInfo";// subject to change
     var first_entry = 1;
     var count_flag = 0;
     var limit;
