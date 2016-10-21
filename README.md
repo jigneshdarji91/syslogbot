@@ -26,12 +26,54 @@
 </tr>
 </table>
 
-## Use Cases: 
+## 3 Use Cases ##
+<b>Use Case 1: Add Server to user info database</b><br>
 
-**Case 1:Check the firewall server for warning and error messages in the last 15 minutes**
+- Preconditions<br>
+	User must have slack bot token in system and set to "ALTCODETOKEN"
+- Main Flow<br>
+	User will write following command to add new server<br>
+	@syslogbot manage add-server=<SERVER_NAME> ip=<IP_ADDRESS>
+- Subflows<br>
+	[S1] Bot will add the server into user info database<br>
+	[S2] Bot will post reply
+- Alternative Flows<br>
+	[E1] Error in adding server
 
-**Case 2: Get the last 15 minutes log of the dhcpd daemon from the DNS server**
+<b>Use Case 2: Delete Server from user info database</b><br>
 
-**Case 3: Get error logs of last 3 hours from all servers**
+- Preconditions<br>
+	User must have slack bot token in system and set to "ALTCODETOKEN"
+- Main Flow<br>
+	User will write following command to delete new server<br>
+	@syslogbot manage delete-server=<SERVER_NAME>
+- Subflows<br>
+	[S1] Bot will delete the server from user info database<br>
+	[S2] Bot will post reply
+- Alternative Flows<br>
+	[E1] Error in deleting server
 
-**Case 4: Mnitor the database server and notify if an error occurs**
+<b>Use Case 3: Query log database for</b><br>
+
+- Preconditions<br>
+	User must have slack bot token in system and set to "ALTCODETOKEN"<br>
+	User must have access to server availabl in user info database
+- Main Flow<br>
+	User will write following command to query logs<br>
+	@syslogbot query server_ip=<IP_ADDRESS> loglevel=<LOG_LEVEL>
+- Subflows<br>
+	[S1] Bot will query the server from log database<br>
+	[S2] Bot will list logs depending upon the filter conditions
+- Alternative Flows<br>
+	[E1] User does not have access to server<br>
+	[E2] No logs in the database
+
+## Mocking ##
+## Bot Implementation ##
+## Selenium testing of each use case ##
+
+
+## Task Tracking -WORKSHEET.md ##
+[Link to WORKSHEET.md]()
+## Screencast ##
+[SCREENCAST]()
