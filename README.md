@@ -83,4 +83,9 @@
 
 ## Task Tracking - [Worksheet](WORKSHEET.md)
 ## Screencast ##
-[SCREENCAST]()
+### Use Case 1: Adding a server
+![Screencast 1](cast_usecase_1.gif)
+### Use Case 2: Deleting a server
+![Screencast 2](cast_usecase_2.gif)
+### Use Case 3: Running query
+![Screencast 3](cast_usecase_3.gif)
