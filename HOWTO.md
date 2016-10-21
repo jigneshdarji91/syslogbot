@@ -1,4 +1,4 @@
-# Steps involved in setup of the branch
+# Steps involved in setting up the DB
 - First we need to install mysql
 
   All the dummy data is being stored in the mysql DB for this submission.
