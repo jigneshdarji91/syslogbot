@@ -23,9 +23,10 @@ DROP TABLE IF EXISTS `ServerInfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ServerInfo` (
-  `userName` varchar(256) DEFAULT NULL,
-  `serverAlias` varchar(256) DEFAULT NULL,
-  `serverIp` varchar(256) DEFAULT NULL
+  `userName` varchar(256) NOT NULL DEFAULT '',
+  `serverAlias` varchar(256) NOT NULL DEFAULT '',
+  `serverIp` varchar(256) NOT NULL DEFAULT '',
+  PRIMARY KEY (`userName`,`serverAlias`,`serverIp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -35,6 +36,7 @@ CREATE TABLE `ServerInfo` (
 
 LOCK TABLES `ServerInfo` WRITE;
 /*!40000 ALTER TABLE `ServerInfo` DISABLE KEYS */;
+INSERT INTO `ServerInfo` VALUES ('jignesh','my_web_server','10.10.1.21'),('jignesh','my_web_server','10.10.1.4'),('ssakpal','my_web_server','10.10.1.20'),('stongao','my_web_server','20.20.43.2');
 /*!40000 ALTER TABLE `ServerInfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-19 23:55:59
+-- Dump completed on 2016-10-20 23:44:13
