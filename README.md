@@ -26,7 +26,7 @@
 </tr>
 </table>
 
-## 3 Use Cases ##
+## Use Cases
 <b>Use Case 1: Add Server to user info database</b><br>
 
 - Preconditions<br>
@@ -68,9 +68,27 @@
 	[E1] User does not have access to server<br>
 	[E2] No logs in the database
 
-## Mocking ##
-## Bot Implementation ##
-## Selenium testing of each use case ##
+## Mocking
+For the bot milestone, we had to decouple the database access from the population of data. So for the purpose of mocking, we have created a mock database with columns as defined in the fields in the Design milestone.
+
+## Bot Implementation
+We have implemented basic interaction with the bot where the bot code performs the following functions:
+- Parse the message to create structured message object
+- Translate the object to a DB query message
+- Query the DB for the required information or update the DB with required information
+
+What the bot does?
+- Bot can add and remote servers
+- Bot can translate user high-level commands to query messages
+- Bot can return the user the output of the required data
+- Bot can provide sufficiently descriptive error messages
+
+What the bot doesn't do yet?
+- It doesn't connect to the servers to pull the logs
+- It doesn't parse log messages to process them into structured DB
+- It doesn't provide monitoring and summary functions
+
+## Selenium testing of each use case
 
 | TEST CASE ID                 | TEST CASE                                                                                                       | EXPECTED RESULT                                                      | ACTUAL RESULT                                                        | RESULT |
 |------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|--------|
@@ -89,3 +107,5 @@
 ![Screencast 2](cast_usecase_2.gif)
 ### Use Case 3: Running query
 ![Screencast 3](cast_usecase_3.gif)
+### Testing
+![Screencast 4](cast_testCases.gif)
