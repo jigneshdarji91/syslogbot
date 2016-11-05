@@ -1,4 +1,6 @@
 from kafka import KafkaConsumer as Consumer
-consumer = Consumer('logs', bootstrap_servers='localhost:9092')
+import json
+
+consumer = Consumer('logs', bootstrap_servers='localhost:9092',value_deserializer=lambda m: json.loads(m.decode('utf-8')))
 for msg in consumer:
-    print (msg)
+    print (msg.value)
