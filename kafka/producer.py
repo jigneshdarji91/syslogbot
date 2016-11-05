@@ -16,7 +16,8 @@ def read_stream (filename):
                 time.sleep(0.1)
             line += tail
         log_obj = parser.parse(line)
-        send_log (log_obj)
+        message = log_obj.__str__()
+        send_log (message)
 
 
 def send_log (message):
