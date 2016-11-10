@@ -19,10 +19,10 @@ def read_stream (filename):
         log_obj = parser.parse(line)
         log_obj["message"] = line
         if hasattr(log_obj, "content"):
-            send_log (json.dumps(log_obj))
+            send_log (log_obj)
 
 
 def send_log (message):
     producer.send('logs', message)
 
-read_stream ('/var/log/system.log')
+read_stream ('/var/log/syslog')

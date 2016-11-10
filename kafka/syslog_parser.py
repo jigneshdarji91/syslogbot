@@ -22,7 +22,7 @@ class Parser:
             payload["host"] = parsed[2]
             payload["app"] = parsed[3]
             payload["content"] = parsed[4]
-            print payload
+            #print payload
         except:
             print("error in parsing: ", sys.exc_info()[0])
 
