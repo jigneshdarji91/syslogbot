@@ -1,10 +1,10 @@
 import mysql.connector
 from time import gmtime, strftime
 
-cnx = mysql.connector.connect(user='root', password='syslogbot',
-                              host='35.163.142.248',
-                              database='slackBotLog_db')
-cursor = cnx.cursor()
+
+def openConnection():
+    cnx = mysql.connector.connect(user='root', password='syslogbot',host='35.163.142.248', database='slackBotLog_db')
+    return cnx
 
 selectQuery = ("select * from LogInfo;")	
 insertQuery = ("INSERT INTO LogInfo VALUES (%s, %s, %s, %s, %s);")
@@ -15,13 +15,13 @@ app = 'mysqld'
 time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 log_message = 'Invalid insertion at node 0'
 
-cursor.execute(insertQuery,(server, log_level, app, time, log_message))
+def insertQuery(cnx, log_obj):
+    cursor = cnx.cursor()
+    cursor.execute(insertQuery,("172.31.31.91", "ERROR", log_obj["app"], time, log_obj["message"]))
+    #cursor.execute(selectQuery,)
+    for (row) in cursor:
+        print(row)
+    cursor.close()
 
-cursor.execute(selectQuery,)
-
-for (row) in cursor:
-  print(row)
-
-cursor.close()
-
-cnx.close()
+def closeConnection(cnx):
+    cnx.close()
