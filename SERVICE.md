@@ -82,9 +82,9 @@ What does service do?
 
 ## Screencast ##
 ### Use Case 1: Adding a server
-![Screencast 1](cast_usecase_1.gif)
+![Screencast 1](service_cast_addServer.gif)
 ### Use Case 2: Deleting a server
-![Screencast 2](cast_usecase_2.gif)
+![Screencast 2](service_cast_deleteServer.gif)
 ### Use Case 3: Running query
-![Screencast 3](cast_usecase_3.gif)
+![Screencast 3](service_cast_queryServer.gif)
 
