@@ -1,11 +1,11 @@
-# node mysql Setup
+# Python mysql Setup
 
 ## BASIC MYSQL Setup: 
 
-- Install MySQL 
+- Install MySQL library
 
 ```
-npm install mysql
+pip install mysql
 ```
 
 
