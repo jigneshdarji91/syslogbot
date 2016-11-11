@@ -7,10 +7,10 @@ class Consumer(threading.Thread):
     daemon = True
 
     def run(self):
-        consumer = KafkaConsumer(bootstrap_servers='localhost:9092',
+        consumer = KafkaConsumer(bootstrap_servers='35.163.99.103:9092',
                                  auto_offset_reset='earliest')
         consumer.subscribe(['logs'])
-
+	print(consumer)
         for message in consumer:
             print (message)
 
