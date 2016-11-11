@@ -18,12 +18,13 @@ def read_stream (filename):
             if tail == '':
                 time.sleep(0.1)
             line += tail
+        line = ip_address + " " + line
         log_obj = parser.parse(line)
         log_obj["message"] = line
 	#print(log_obj)
         if "content" in log_obj and len(log_obj["content"]) > 0:
-            print(line)
-            line = ip_address + " " + line
+            #print(line)
+            #line = ip_address + " " + line
             send_log(line)
 
 

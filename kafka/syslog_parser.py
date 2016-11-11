@@ -17,6 +17,7 @@ class Parser:
 
     def parse(self, line):
         payload = {}
+        #print(line)
         try:
             parsed = self.pattern.parseString(line)
             payload["ip"]           = parsed[0]
