@@ -8,6 +8,7 @@ def openConnection():
 
 selectQuery = ("select * from LogInfo;")	
 insertQuery = ("INSERT INTO LogInfo VALUES (%s, %s, %s, %s, %s);")
+logs = ()
 
 server = '10.10.10.7'
 log_level = 'ERROR'
@@ -15,10 +16,12 @@ app = 'mysqld'
 time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 log_message = 'Invalid insertion at node 0'
 
+
 def insertQuery(cnx, log_obj):
     cursor = cnx.cursor()
-    cursor.execute(insertQuery,("172.31.31.91", "ERROR", log_obj["app"], time, log_obj["message"]))
-    #cursor.execute(selectQuery,)
+    log_entry = ("172.31.31.91", "ERROR", log_obj["app"], time, log_obj["message"])
+    cursor.execute(insertQuery,log_entry)
+    #cursor.execute(selectQuery)
     for (row) in cursor:
         print(row)
     cursor.close()
