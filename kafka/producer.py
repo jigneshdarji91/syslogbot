@@ -2,10 +2,12 @@ from kafka import KafkaProducer as Producer
 import time
 from syslog_parser import Parser
 import json
+import socket
+
 
 producer = Producer(bootstrap_servers='localhost:9092')
 parser = Parser()
-
+ip_address = socket.gethostbyname(socket.gethostname())
 
 def read_stream (filename):
     syslogfile = open(filename,'r')
@@ -21,6 +23,7 @@ def read_stream (filename):
 	#print(log_obj)
         if "content" in log_obj and len(log_obj["content"]) > 0:
             print(line)
+            line = ip_address + " " + line
             send_log(line)
 
 
