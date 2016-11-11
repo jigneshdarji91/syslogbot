@@ -9,4 +9,5 @@ for msg in consumer:
     log_obj = parser.parse(msg.value)
     log_obj["message"] = msg.value
     print(log_obj)
+    
     #print msg
