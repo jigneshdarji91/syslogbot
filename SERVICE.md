@@ -1,4 +1,4 @@
-# Syslog Bot
+# Syslog Bot - Bot Milestone
 
 
 ## Team
