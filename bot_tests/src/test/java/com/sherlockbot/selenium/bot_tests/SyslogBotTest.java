@@ -157,7 +157,7 @@ public class SyslogBotTest {
 
 		// Post your manage command
 		WebElement messageBot = driver.findElement(By.id("message-input"));
-		messageBot.sendKeys("query server='10.10.1.2' log_level='ERROR'");
+		messageBot.sendKeys("query server='172.31.31.91' log_level='ERROR'");
 		messageBot.sendKeys(Keys.RETURN);
 
 		wait.withTimeout(3, TimeUnit.SECONDS).ignoring(StaleElementReferenceException.class);
@@ -165,7 +165,7 @@ public class SyslogBotTest {
 		WebElement msg = driver.findElement(
 			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
 			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
-			By.xpath("//span[@class='message_body' and contains(. , '10.10.1.2')]/preceding-sibling::a[text()='syslogbot']"));
+			By.xpath("//span[@class='message_body' and contains(. , '172.31.31.91')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
 
@@ -190,7 +190,7 @@ public class SyslogBotTest {
 		WebElement msg = driver.findElement(
 			//Check if any node names 'span' of class 'message_body' contains keyword 'server added'.
 			//If it has a preceding-sibling of name 'syslog bot' it is valid reply from syslog bot.
-			By.xpath("//span[@class='message_body' and contains(. , 'Error finding the requested Data')]/preceding-sibling::a[text()='syslogbot']"));
+			By.xpath("//span[@class='message_body' and contains(. , 'Error')]/preceding-sibling::a[text()='syslogbot']"));
 		assertNotNull(msg);
 		
 	}
