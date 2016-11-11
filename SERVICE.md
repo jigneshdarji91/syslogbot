@@ -1,4 +1,4 @@
-# Syslog Bot - Bot Milestone
+# Syslog Bot - Service Milestone
 
 
 ## Team
@@ -13,10 +13,6 @@
 <td> jndarji </td>
 </tr>
 <tr>
-<td> Prathamesh Ghanekar </td>
-<td>  pghanek </td>
-</tr>
-<tr>
 <td> Saurabh Sakpal </td>
 <td> ssakpal </td>
 </tr>
@@ -25,24 +21,6 @@
 <td>  stongao </td>
 </tr>
 </table>
-
-## Steps involved in setting up the DB
-- First we need to install mysql
-
-  All the dummy data is being stored in the mysql DB for this submission.
-
-- Second we need to create two DBs namely "slackBotLog_db" and "slackBotUser_db" 
-
-  The db "slackBotUser_db" are used to store the User-Server info mapping and db "slackBotLog_db" is used to store the Log information for each server.
-
-- Finally import the dump files from the "Bot/data" folder
-  There are two dump files in the data folder. Execute following commands to import the dump files :
-  " mysql -p -u %MYSQL_USER% slackBotLog_db < dummyDataDump.sql " and " mysql -p -u %MYSQL_USER% slackBotUser_db < dummyServerInfo.sql"
-
-- In the db.js file please update the following tokens to match the mysql user and password
-  %MYSQL_USER% and %MYSQL_USER_PASSWORD%
-
-
 
 ## Use Cases
 <b>Use Case 1: Add Server to user info database</b><br>
@@ -86,36 +64,20 @@
 	[E1] User does not have access to server<br>
 	[E2] No logs in the database
 
-## Mocking
-For the bot milestone, we had to decouple the database access from the population of data. So for the purpose of mocking, we have created a mock database with columns as defined in the fields in the Design milestone.
+## Service Implementation
+We have implemented service to gather logs from servers and present to user via bot created in previous milestone. Following is the architecture diagram of service.
+Service performs following functions.
+- Gathers data from different nodes and places it on messaging queue.
+- Fetches data from messaging queue and inserts it into database
+- The data from database is fetched by bot as requested by user.
 
-## Bot Implementation
-We have implemented basic interaction with the bot where the bot code performs the following functions:
-- Parse the message to create structured message object
-- Translate the object to a DB query message
-- Query the DB for the required information or update the DB with required information
 
-What the bot does?
-- Bot can add and remote servers
-- Bot can translate user high-level commands to query messages
-- Bot can return the user the output of the required data
-- Bot can provide sufficiently descriptive error messages
+What does service do?
+- Service can read data from syslog of server and enqueue it on kafka messaging queue, running on an independent node.
+- Service can insert syslog read from different nodes in database.
+- Service can add server to userinfo database to store it with alias.
 
-What the bot doesn't do yet?
-- It doesn't connect to the servers to pull the logs
-- It doesn't parse log messages to process them into structured DB
-- It doesn't provide monitoring and summary functions
 
-## Selenium testing of each use case
-
-| TEST CASE ID                 | TEST CASE                                                                                                       | EXPECTED RESULT                                                      | ACTUAL RESULT                                                        | RESULT |
-|------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|--------|
-| SyslogBot.AddServer.Test1    | Add new server to user info database Valid Input:  @syslogbot manage add-server='my_web_server' ip='20.20.43.2' | Server added successfully.                                           | Server added successfully.                                           | PASS   |
-| SyslogBot.AddServer.Test2    | Add new server to user info database Invalid Input:  @syslogbot manage add-server='my_web_server'               | Error adding server.                                                 | Error adding server.                                                 | PASS   |
-| SyslogBot.DeleteServer.Test1 | Delete server from user info database Valid Input: @syslogbot manage delete-server='my_web_server'              | Server deleted successfully.                                         | Server deleted successfully.                                         | PASS   |
-| SyslogBot.DeleteServer.Test2 | Delete server from user info database Invalid Input: @syslogbot manage delete-server='invalid_server_name'      | Error deleting server.                                               | Error deleting server.                                               | PASS   |
-| SyslogBot.QueryLogsr.Test1   | Query logs from log database Valid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ERROR"               | List of logs from log database with corresponding server ip address. | List of logs from log database with corresponding server ip address. | PASS   |
-| SyslogBot.QueryLogsr.Test2   | Query logs from log database Invalid Input: @syslogbot query server_ip="10.10.1.2" loglevel="ABC"               | Invalid Input.                                                       | Invalid Input.                                                       | PASS   |
 
 ## Task Tracking - [Worksheet](WORKSHEET.md)
 ## Screencast ##
