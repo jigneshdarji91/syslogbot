@@ -3,7 +3,7 @@ import time
 from syslog_parser import Parser
 import json
 
-producer = Producer(bootstrap_servers='localhost:9092', value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+producer = Producer(bootstrap_servers='localhost:9092')
 parser = Parser()
 
 
@@ -18,8 +18,10 @@ def read_stream (filename):
             line += tail
         log_obj = parser.parse(line)
         log_obj["message"] = line
-        if hasattr(log_obj, "content"):
-            send_log (log_obj)
+	#print(log_obj)
+        if "content" in log_obj and len(log_obj["content"]) > 0:
+            print(line)
+            send_log(line)
 
 
 def send_log (message):
