@@ -1,9 +1,19 @@
 import mysql.connector
 from time import gmtime, strftime
 
+config = {
+        'host': '35.163.142.248',
+        'port': 3306,
+        'database': 'slackBotLog_db',
+        'user': 'root',
+        'password': 'syslogbot',
+        'charset': 'utf8',
+        'use_unicode': True,
+        'get_warnings': True,
+    }
 
 def openConnection():
-    cnx = mysql.connector.connect(user='root', password='syslogbot',host='35.163.142.248', database='slackBotLog_db')
+    cnx = mysql.connector.connect(**config)
     return cnx
 
 selectQuery = ("select * from LogInfo;")	
