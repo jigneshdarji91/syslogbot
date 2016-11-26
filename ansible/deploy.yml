@@ -1,0 +1,4 @@
+---
+- hosts: bot
+  roles:
+      - bot

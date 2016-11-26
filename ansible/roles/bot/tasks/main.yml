@@ -1,0 +1,3 @@
+---
+- name: checkout repository
+  git: repo={{reponame}} dest={{path}} accept_hostkey=yes
