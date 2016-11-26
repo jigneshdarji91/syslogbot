@@ -1,3 +1,5 @@
 ---
-- name: checkout repository
-  git: repo={{reponame}} dest={{path}} accept_hostkey=yes
+- name: npm install
+  npm: path={{slackpath}}
+- name: run slackbot.js
+  command: forever start {{slackpath}}/SyslogBot.js
