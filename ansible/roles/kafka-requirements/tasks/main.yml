@@ -4,7 +4,7 @@
   become_method: sudo
   pip: name=kafka-python
 - name: Install kafka
-  unarchive: src=http://www-us.apache.org/dist/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz dest="{{ ansible_env.HOME }}/" remote_src=yes validate_certs=no
+  unarchive: src=https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz dest="{{ ansible_env.HOME }}/" remote_src=yes
 - name: Install pyparsing
   become: yes
   become_method: sudo
