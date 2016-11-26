@@ -1,0 +1,9 @@
+---
+- name: Install kafka
+  become: yes
+  become_method: sudo
+  pip: name=kafka-python
+- name: Install pyparsing
+  become: yes
+  become_method: sudo
+  pip: name=pyparsing
