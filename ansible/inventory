@@ -1,2 +1,5 @@
 [bot]
 152.46.20.84 ansible_user=jndarji
+
+[broker]
+152.46.20.84 ansible_user=jndarji

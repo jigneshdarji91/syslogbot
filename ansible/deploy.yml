@@ -2,3 +2,7 @@
 - hosts: bot
   roles:
       - bot
+
+- hosts: broker
+  roles:
+      - broker
