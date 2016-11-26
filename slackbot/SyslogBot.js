@@ -15,9 +15,9 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
-  token: process.env.ALTCODETOKEN,
+  //token: process.env.ALTCODETOKEN,
   //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
-  //token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+  token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
 }).startRTM()
 
 // give the bot something to listen for.
@@ -28,15 +28,15 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
   var getUserName = function(callback)
   {
     slack.users.info({
-      token: process.env.ALTCODETOKEN,
-      //token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+      //token: process.env.ALTCODETOKEN,
+      token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
       //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
       user: message.user
     }, (err, data) => {
       if (err) throw err
       userName = data.user.name;
       callback(userName);
-    }); 
+    });
   }
 
   var userName = function( username ) {
@@ -49,7 +49,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
       var botReply = CommandGenerator.objectToCommand(object, userName, function(results){
         //console.log('Result from database',results);
         bot.reply(message, results);
-      });    
+      });
     }
     if (object.type == "query"
       || object.type == "monitor"
@@ -65,9 +65,12 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
         bot.reply(message, response);
       });
     }
+    else {
+      bot.reply(message, "Hello! I cannot understand what you want. :) ");
+    }
   };
   //SyslogDB.connectToDb();
-  getUserName( userName );     
+  getUserName( userName );
 });
 
 function processResults(results) {
@@ -80,7 +83,7 @@ function processResults(results) {
         responseMap[result[0]] = responseMap[result[0]] + "\n" + result[1];
         //console.log('—' + result[0] + ':' + result[1]);
       }
-      else 
+      else
       {
         responseMap[result[0]] = result[1];
       }
@@ -94,7 +97,7 @@ function processResults(results) {
         response = response +"*"+key + "* :\n" +responseMap[key];
       }
       else{
-        response = response +"\n*"+key + "* :\n"+responseMap[key]; 
+        response = response +"\n*"+key + "* :\n"+responseMap[key];
       }
       console.log('—' + key + ':' + responseMap[key]);
       a = a +1;

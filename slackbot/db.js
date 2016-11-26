@@ -1,18 +1,18 @@
 var mysql = require('mysql');
 
 var logDB_connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : %MYSQL_USER%,
-  password : %MYSQL_USER_PASSWORD%,
+  host     : '35.163.142.248',
+  user     : 'root',
+  password : 'syslogbot',
   database : 'slackBotLog_db'
 });
 
 logDB_connection.connect();
 
 var userDB_connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : %MYSQL_USER%,
-  password : %MYSQL_USER_PASSWORD%,
+  host     : '35.163.142.248',
+  user     : 'root',
+  password : 'syslogbot',
   database : 'slackBotUser_db'
 });
 
