@@ -1,3 +1,2 @@
 ---
-reponame: git@github.ncsu.edu:CSC510-Sherlock/Bot.git
-path: "{{ ansible_env.HOME }}/Bot/"
+slackpath: "{{ ansible_env.HOME }}/Bot/slackbot/"
