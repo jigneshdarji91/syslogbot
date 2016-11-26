@@ -50,8 +50,7 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
         //console.log('Result from database',results);
         bot.reply(message, results);
       });
-    }
-    if (object.type == "query"
+    } else if (object.type == "query"
       || object.type == "monitor"
       || object.type == "summary") {
       var query = QueryGenerator.objectToQuery(object);
@@ -65,8 +64,8 @@ controller.hears('(.*)',['direct_mention', 'direct_message', 'weather'], functio
         bot.reply(message, response);
       });
     }
-    else {
-      bot.reply(message, "Hello! I cannot understand what you want. :) ");
+    else if (object.type == "none"){
+      bot.reply(message, "Hello! I cannot understand what you want.");
     }
   };
   //SyslogDB.connectToDb();
