@@ -1,0 +1,3 @@
+---
+- name: Run Producer
+  command: forever start -c python "{{bot_repo_clone_path}}/kafka/producer.py"
