@@ -1,5 +1,3 @@
 ---
-- name: Run Zookeeper server
-  command: bin/zookeeper-server-start.sh -daemon config/zookeeper.properties chdir={{kafka_path}}
 - name: Run Kafka server
   command: bin/kafka-server-start.sh -daemon config/server.properties chdir={{kafka_path}}
