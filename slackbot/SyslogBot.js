@@ -49,22 +49,16 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
         }
         console.log('here type is:', object.type)
         if (object.type == "command") {
-
-            //console.log("userName before sending to command generator: ", userName)
             var botReply = CommandGenerator.objectToCommand(object, userName, function(results) {
-                //console.log('Result from database',results);
                 bot.reply(message, results);
             });
-        } else if (object.type == "query" ||
-            object.type == "monitor" ||
-            object.type == "summary") {
+        } else if (object.type == "query" || object.type == "monitor" || object.type == "summary") {
             var query = QueryGenerator.objectToQuery(object);
             SyslogDB.executeLogQuery(qu8410ery, function(result) {
                 console.log("query results: " + result);
                 var response = 'Error finding the requested Data';
                 if (result != null) {
                     response = processResults(result);
-                    //bot.reply(message, response);
                 }
                 bot.reply(message, response);
             });
@@ -72,7 +66,6 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
             bot.reply(message, "Hello! I cannot understand what you want.");
         }
     };
-    //SyslogDB.connectToDb();
     getUserName(userName);
 });
 
@@ -84,7 +77,6 @@ function processResults(results) {
         var result = results[i];
         if (responseMap[result[0]] != null) {
             responseMap[result[0]] = responseMap[result[0]] + "\n" + result[1];
-            //console.log('—' + result[0] + ':' + result[1]);
         } else {
             responseMap[result[0]] = result[1];
         }
