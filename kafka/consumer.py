@@ -1,8 +1,9 @@
 from kafka import KafkaConsumer as Consumer
 from syslog_parser import Parser
 import json
-import os
 from db_connection import *
+import os
+
 BROKER_SOCKET=os.env['BROKER_SOCKET']
 
 parser = Parser()
