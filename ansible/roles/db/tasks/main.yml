@@ -1,0 +1,50 @@
+---
+- name: Install MySQL dependencies
+  apt: name={{item}} state=present update_cache=true
+  become: yes
+  become_method: sudo
+  with_items:
+    - bundler
+    - mysql-server-core-5.5
+    - mysql-client-core-5.5
+    - libmysqlclient-dev
+    - python-mysqldb
+    - build-essential
+- name: Install MySQL
+  become: yes
+  become_method: sudo
+  apt: pkg={{item}} state=present
+  with_items:
+     - mysql-server
+     - mysql-client
+- name: Remove the MySQL test database
+  become: yes
+  become_method: sudo
+  action: mysql_db db=test state=absent
+- name: Create databases
+  become: yes
+  become_method: sudo
+  mysql_db: name={{item}} state=present collation=utf8_general_ci encoding=utf8
+  with_items:
+      - slackBotLog_db
+      - slackBotUser_db
+- name: Add deploy DB user and allow access to news_* databases
+  become: yes
+  become_method: sudo
+  mysql_user: name={{db_username}} password={{db_password}} host="%" priv=*.*:ALL,GRANT state=present
+- name: Remove a line in my.cnf
+  become: yes
+  become_method: sudo
+  lineinfile: dest=/etc/mysql/my.cnf
+              regexp="^bind-address"
+              line="bind-address = 192.168.60.10"
+              state=absent
+- name: Add a line in my.cnf
+  become: yes
+  become_method: sudo
+  lineinfile: dest=/etc/mysql/my.cnf
+              line="bind-address = {{ db_ip }}"
+- name: Restart the MySQL service
+  become: yes
+  become_method: sudo
+  action: service name=mysql state=restarted enabled=true
