@@ -1,0 +1,43 @@
+- hosts: node5
+  become: yes
+  become_method: sudo
+  vars:
+    root_db_password: slackbot
+  gather_facts: True
+  tasks:
+    - name: Install MySQL packages
+      apt: name={{item}} state=present
+      with_items:
+        - bundler
+        - mysql-server-core-5.5
+        - mysql-client-core-5.5
+        - libmysqlclient-dev
+        - python-mysqldb
+        - build-essential
+    - name: Install MySQL
+      apt: pkg={{item}} state=present
+      with_items:
+         - mysql-server
+         - mysql-client
+    - name: Remove the MySQL test database
+      action: mysql_db db=test state=absent
+    - name: Create databases
+      mysql_db: name={{item}} state=present collation=utf8_general_ci encoding=utf8
+      with_items:
+          - slackBotLog_db
+          - slackBotUser_db
+    - name: Add deploy DB user and allow access to news_* databases
+      mysql_user: name=root password=slackbot host="%" priv=*.*:ALL,GRANT state=present
+    - name: Remove a line in my.cnf
+      lineinfile: dest=/etc/mysql/my.cnf
+                  regexp="^bind-address"
+                  line="bind-address = 192.168.60.10"
+                  state=absent
+    - name: Add a line in my.cnf
+      lineinfile: dest=/etc/mysql/my.cnf
+                  line="bind-address = 192.168.60.10"
+    - name: Restart the MySQL service
+      action: service name=mysql state=restarted enabled=true
+
+
+      
