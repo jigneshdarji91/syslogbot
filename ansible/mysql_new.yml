@@ -38,6 +38,8 @@
                   line="bind-address = 192.168.60.10"
     - name: Restart the MySQL service
       action: service name=mysql state=restarted enabled=true
+    - name: Cloning git repo
+      git: repo=https://github.ncsu.edu/CSC510-Sherlock/Bot.git dest=/home/vagrant/SlackBot clone=yes
 
 
       
