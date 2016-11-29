@@ -1,10 +1,13 @@
 from kafka import KafkaConsumer as Consumer
 from syslog_parser import Parser
 import json
+import os
 from db_connection import *
+BROKER_SOCKET=os.env['BROKER_SOCKET']
+
 parser = Parser()
 cnx = openConnection()
-consumer = Consumer(bootstrap_servers='35.163.99.103:9092')
+consumer = Consumer(bootstrap_servers=BROKER_SOCKET)
 consumer.subscribe(['logs'])
 #print (json.loads(consumer))
 for msg in consumer:

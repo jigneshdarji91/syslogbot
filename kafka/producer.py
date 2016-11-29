@@ -3,9 +3,12 @@ import time
 from syslog_parser import Parser
 import json
 import socket
+import os
+
+BROKER_SOCKET=os.env['BROKER_SOCKET']
 
 
-producer = Producer(bootstrap_servers='localhost:9092')
+producer = Producer(bootstrap_servers=BROKER_SOCKET)
 parser = Parser()
 ip_address = socket.gethostbyname(socket.gethostname())
 

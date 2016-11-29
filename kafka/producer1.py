@@ -1,7 +1,10 @@
 import json, threading, logging, time
-
 from kafka import KafkaProducer
 from syslog_parser import Parser
+import os
+
+BROKER_SOCKET=os.env['BROKER_SOCKET']
+
 parser = Parser()
 
 def read_stream (filename):
@@ -25,10 +28,10 @@ class Producer(threading.Thread):
     daemon = True
 
     def run(self):
-        producer = KafkaProducer(bootstrap_servers='localhost:9092')
+        producer = KafkaProducer(bootstrap_servers=BROKER_IP)
         producer.send('logs', 'test')
         msg1 = "{'definitely':'changed'}"
-	producer.send('logs',b"%s" % msg1)	
+	producer.send('logs',b"%s" % msg1)
 
         while True:
             #producer.send('logs', b"test")

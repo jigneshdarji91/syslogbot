@@ -1,13 +1,15 @@
 import threading, logging, time
-
 from kafka import KafkaConsumer, KafkaProducer
+import os
+
+BROKER_SOCKET=os.env['BROKER_SOCKET']
 
 
 class Consumer(threading.Thread):
     daemon = True
 
     def run(self):
-        consumer = KafkaConsumer(bootstrap_servers='35.163.99.103:9092',
+        consumer = KafkaConsumer(bootstrap_servers=BROKER_SOCKET,
                                  auto_offset_reset='earliest')
         consumer.subscribe(['logs'])
 	print(consumer)

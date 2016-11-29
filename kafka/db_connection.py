@@ -1,9 +1,14 @@
 import mysql.connector
 from time import gmtime, strftime
 import re
+import os
+
+DB_IP = os.env['DB_IP']
+DB_PORT = os.env['DB_PORT']
+
 config = {
-        'host': '35.163.142.248',
-        'port': 3306,
+        'host': DB_IP,
+        'port': DB_PORT,
         'database': 'slackBotLog_db',
         'user': 'root',
         'password': 'syslogbot',
@@ -16,7 +21,7 @@ def openConnection():
     cnx = mysql.connector.connect(**config)
     return cnx
 
-selectQuery = ("select * from LogInfo;")	
+selectQuery = ("select * from LogInfo;")
 insertQuery = ("INSERT INTO LogInfo(server, log_level, app, time, log_message) VALUES (%s, %s, %s, %s, %s);")
 logs = ()
 
