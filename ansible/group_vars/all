@@ -3,3 +3,9 @@ kafka_src: http://www-us.apache.org/dist/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz
 kafka_path: "{{ ansible_env.HOME }}/kafka_2.10-0.10.1.0/"
 bot_repo: git@github.ncsu.edu:CSC510-Sherlock/Bot.git
 bot_repo_clone_path: "{{ ansible_env.HOME }}/Bot/"
+zookeeper_ip: "ZKIP"
+zookeeper_port: "ZKPORT"
+broker_ip: "BROKERIP"
+broker_port: "BROKERPORT"
+db_ip: "DB_IP"
+db_port: "DB_PORT"

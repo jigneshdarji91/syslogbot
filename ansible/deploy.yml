@@ -3,6 +3,10 @@
   roles:
       - bot
 
-- hosts: broker
+- hosts: producer
   roles:
-      - broker
+      - producer
+  environment:
+      BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
+      ZOOKEEPER_SOCKET: '{{ zookeeper_ip }}:{{ zookeeper_port }}'
+      DB_SOCKET: '{{ db_ip }}'
