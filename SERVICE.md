@@ -66,7 +66,7 @@
 
 ## Service Implementation
 We have implemented service to gather logs from servers and present to user via bot created in previous milestone. Following is the architecture diagram of service.
-![architecture](architecture.jpg)
+![architecture](doc/images/architecture.jpg)
 ####Service performs following functions.
 - Gathers data from different nodes and places it on messaging queue.
 - Fetches data from messaging queue and inserts it into database
@@ -82,9 +82,8 @@ What does service do?
 
 ## Screencast ##
 ### Use Case 1: Adding a server
-![Screencast 1](service_cast_addServer.gif)
+![Screencast 1](doc/images/service_cast_addServer.gif)
 ### Use Case 2: Deleting a server
-![Screencast 2](service_cast_deleteServer.gif)
+![Screencast 2](doc/images/service_cast_deleteServer.gif)
 ### Use Case 3: Running query
-![Screencast 3](service_cast_queryServer.gif)
-
+![Screencast 3](doc/images/service_cast_queryServer.gif)

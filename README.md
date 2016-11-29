@@ -31,7 +31,7 @@
 
   All the dummy data is being stored in the mysql DB for this submission.
 
-- Second we need to create two DBs namely "slackBotLog_db" and "slackBotUser_db" 
+- Second we need to create two DBs namely "slackBotLog_db" and "slackBotUser_db"
 
   The db "slackBotUser_db" are used to store the User-Server info mapping and db "slackBotLog_db" is used to store the Log information for each server.
 
@@ -120,10 +120,10 @@ What the bot doesn't do yet?
 ## Task Tracking - [Worksheet](WORKSHEET.md)
 ## Screencast ##
 ### Use Case 1: Adding a server
-![Screencast 1](cast_usecase_1.gif)
+![Screencast 1](doc/images/cast_usecase_1.gif)
 ### Use Case 2: Deleting a server
-![Screencast 2](cast_usecase_2.gif)
+![Screencast 2](doc/images/cast_usecase_2.gif)
 ### Use Case 3: Running query
-![Screencast 3](cast_usecase_3.gif)
+![Screencast 3](doc/images/cast_usecase_3.gif)
 ### Testing
-![Screencast 4](cast_testCases.gif)
+![Screencast 4](doc/images/cast_testCases.gif)
