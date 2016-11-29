@@ -54,7 +54,7 @@
   with_items: ec2.tagged_instances
 
 - name: Add IP to ec2_hosts group
-  add_host: hostname={{ ec2.tagged_instances[0].public_ip }} groups=ec2_hosts
+  add_host: hostname="{{ ec2.tagged_instances[0].public_ip }}" groups="{{ group }}"
   with_items: ec2.tagged_instances
 
 # - name: Make sure user is on server and generate ssh key for it

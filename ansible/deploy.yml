@@ -1,12 +1,21 @@
 ---
-- hosts: bot
+- name: Create AWS instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
   roles:
-      - bot
+    - { role: create_instances, group: zookeeper}
 
-- hosts: producer
+- name: Configure Zookeeper
+  hosts: zookeeper
+  sudo: True
+  gather_facts: True
   roles:
-      - producer
+    - zookeeper
   environment:
       BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
       ZOOKEEPER_SOCKET: '{{ zookeeper_ip }}:{{ zookeeper_port }}'
-      DB_SOCKET: '{{ db_ip }}'
+      DB_IP: '{{ db_ip }}'
+      DB_PORT: '{{ db_port }}'
+      DB_SOCKET: '{{ db_ip }}:{{ db_port }}'
