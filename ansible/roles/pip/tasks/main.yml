@@ -1,5 +1,5 @@
 ---
 - name: Install pip
   become: yes
-  become_user: root
-  yum: name=python-pip state=present update_cache=yes
+  become_method: sudo
+  yum: name=python-pip state=present
