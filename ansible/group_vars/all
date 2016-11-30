@@ -1,11 +1,15 @@
 ---
 kafka_src: http://www-us.apache.org/dist/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz
 kafka_path: "{{ ansible_env.HOME }}/kafka_2.10-0.10.1.0/"
-bot_repo: git@github.ncsu.edu:CSC510-Sherlock/Bot.git
+bot_repo: https://github.com/jigneshdarji91/syslogbot.git
 bot_repo_clone_path: "{{ ansible_env.HOME }}/Bot/"
-zookeeper_ip: "ZKIP"
-zookeeper_port: "ZKPORT"
-broker_ip: "BROKERIP"
-broker_port: "BROKERPORT"
-db_ip: "152.46.16.104"
-db_port: "DB_PORT"
+db_dump_repo: https://github.com/SaurabhSakpal/SlackBotDumpFiles.git
+db_dump_clone_path: "{{ ansible_env.HOME }}/SlackBot/"
+zookeeper_port: "2181"
+broker_port: "9092"
+db_port: "3306"
+zookeeper_ip: 54.218.59.99 
+broker_ip: 54.213.67.123 
+producer_ip: 54.191.251.253 
+consumer_ip: 54.214.101.74 
+bot_ip: 54.218.62.69

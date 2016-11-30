@@ -1,3 +1,7 @@
 ---
+- name: Install git
+  become: yes
+  become_method: sudo
+  apt: name=git state=present update_cache=yes
 - name: checkout repository
   git: repo={{bot_repo}} dest={{bot_repo_clone_path}} accept_hostkey=yes
