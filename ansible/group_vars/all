@@ -8,9 +8,8 @@ db_dump_clone_path: "{{ ansible_env.HOME }}/SlackBot/"
 zookeeper_port: "2181"
 broker_port: "9092"
 db_port: "3306"
-zookeeper_ip: 54.187.52.200
-broker_ip: 54.187.52.200
-db_ip: 54.187.52.200
-producer_ip: 54.187.52.200
-consumer_ip: 54.187.52.200
-bot_ip: 54.187.52.200
+zookeeper_ip: 54.218.59.99 
+broker_ip: 54.213.67.123 
+producer_ip: 54.191.251.253 
+consumer_ip: 54.214.101.74 
+bot_ip: 54.218.62.69

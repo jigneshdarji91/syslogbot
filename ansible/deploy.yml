@@ -5,44 +5,5 @@
   gather_facts: False
   remote_user: ubuntu
   roles:
-    - { role: create_instances, group: zookeeper}
+    - { role: create_instances, group: ["zookeeper", "broker", "producer", "consumer", "bot"]}
 
-- name: Create AWS instance
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  remote_user: ubuntu
-  roles:
-    - { role: create_instances, group: broker}
-
-- name: Create AWS instance
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  remote_user: ubuntu
-  roles:
-    - { role: create_instances, group: db}
-
-- name: Create AWS instance
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  remote_user: ubuntu
-  roles:
-    - { role: create_instances, group: producer}
-
-- name: Create AWS instance
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  remote_user: ubuntu
-  roles:
-    - { role: create_instances, group: consumer}
-
-- name: Create AWS instance
-  hosts: localhost
-  connection: local
-  gather_facts: False
-  remote_user: ubuntu
-  roles:
-    - { role: create_instances, group: bot}
