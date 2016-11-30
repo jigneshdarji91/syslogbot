@@ -29,8 +29,6 @@ function objectToQuery(object) {
             }
             first_entry = 0;
 
-            //console.log(key + " -> " + object[key]);
-            //if (key != 'count'){
             query = query + key + " LIKE ";
 
             for (i = 0; i < object[key].length; i++) {

@@ -56,7 +56,6 @@ function executeServerInfoQuery(query, isInsert, resultHandler) {
     var db_connection = getUserDBConnector();
       db_connection.query(query, function(err, rows, fields) {
         console.log(rows);
-        console.log(err.code);
         if (!err) {
             if (rows.affectedRows == 0 && !isInsert) {
                 resultHandler('Error');

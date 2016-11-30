@@ -55,14 +55,19 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
             });
         } else if (object.type == "query" || object.type == "monitor" || object.type == "summary") {
             var query = QueryGenerator.objectToQuery(object);
-            SyslogDB.executeLogQuery(qu8410ery, function(result) {
-                console.log("query results: " + result);
-                var response = 'Error finding the requested Data';
-                if (result != null) {
-                    response = processResults(result);
-                }
-                bot.reply(message, response);
-            });
+            if(Validator.shouldExecuteQuery(object)){
+              SyslogDB.executeLogQuery(query, function(result) {
+                  console.log("query results: " + result);
+                  var response = 'Error finding the requested Data';
+                  if (result != null) {
+                      response = processResults(result);
+                  }
+                  bot.reply(message, response);
+              });
+            }
+            else {
+
+            }
         } else if (object.type == "none") {
             bot.reply(message, "Hello! I cannot understand what you want.");
         }
