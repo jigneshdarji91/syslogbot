@@ -2,7 +2,7 @@
 - name: Install MySQL dependencies
   apt: name={{item}} state=present update_cache=true
   become: yes
-  become_method: sudo
+  become_user: root
   with_items:
     - bundler
     - mysql-server-core-5.5
@@ -12,7 +12,7 @@
     - build-essential
 - name: Install MySQL
   become: yes
-  become_method: sudo
+  become_user: root
   apt: pkg={{item}} state=present
   with_items:
      - mysql-server
@@ -43,7 +43,7 @@
   become: yes
   become_user: root
   lineinfile: dest=/etc/mysql/my.cnf
-              line="bind-address = {{ db_ip }}"
+              line="bind-address = {{ broker_ip }}"
 - name: Restart the MySQL service
   become: yes
   become_user: root

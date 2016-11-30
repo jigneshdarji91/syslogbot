@@ -1,5 +1,5 @@
 ---
 - name: Install pip
   become: yes
-  become_method: sudo
+  become_user: root
   apt: name=python-pip state=present
