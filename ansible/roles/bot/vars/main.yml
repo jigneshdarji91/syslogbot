@@ -1,2 +1,3 @@
 ---
 slackpath: "{{ ansible_env.HOME }}/Bot/slackbot/"
+ALTCODETOKEN: "{{ lookup('env', 'ALTCODETOKEN') }}"
