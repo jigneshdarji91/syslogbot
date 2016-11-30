@@ -1,15 +1,15 @@
 ---
 - name: Install kafka-python
   become: yes
-  become_user: root
+  become_method: sudo
   pip: name=kafka-python
 - name: Install kafka
   unarchive: src={{kafka_src}} dest="{{ ansible_env.HOME }}/" remote_src=yes validate_certs=no
 - name: Install pyparsing
   become: yes
-  become_user: root
+  become_method: sudo
   pip: name=pyparsing
 - name: Install mysql-connector
   become: yes
-  become_user: root
+  become_method: sudo
   pip: name=mysql-connector
