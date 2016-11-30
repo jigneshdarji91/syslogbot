@@ -2,4 +2,4 @@
 - name: Install pip
   become: yes
   become_method: sudo
-  apt: name=python-pip state=present
+  yum: name=python-pip state=present
