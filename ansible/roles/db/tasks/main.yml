@@ -1,8 +1,8 @@
 ---
 - name: Install MySQL dependencies
-  become: yes
+  apt: name={{item}} state=present update_cache=true
+  become: true
   become_user: root
-  yum: name={{item}} state=present update_cache=true enablerepo=epel
   with_items:
     - bundler
     - mysql-server-core-5.5
@@ -13,7 +13,7 @@
 - name: Install MySQL
   become: yes
   become_user: root
-  yum: pkg={{item}} state=present
+  apt: pkg={{item}} state=present
   with_items:
      - mysql-server
      - mysql-client

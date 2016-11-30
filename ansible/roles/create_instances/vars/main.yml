@@ -3,5 +3,5 @@ env: "staging" # env name, this will be used as an inventory file name
 app_code_user: "ubuntu" # remote user
 aws_region: us-west-2 # AWS region, where instance will be created
 instance_type: t2.micro  # AWS instance type
-ami: ami-5ec1673e  # AMI id, example uses Ubuntu 14.04.1 LTS
+ami: ami-01f05461  # AMI id, example uses Ubuntu 14.04.1 LTS
 project_name: syslogbot
