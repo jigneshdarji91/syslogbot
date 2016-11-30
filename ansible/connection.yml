@@ -7,3 +7,48 @@
     - zookeeper
   environment:
       BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
+
+- name: Configure broker
+  hosts: broker
+  become: yes
+  become_user: ec2-user
+  gather_facts: True
+  roles:
+    - broker
+  environment:
+      ZOOKEEPER_IP: '{{ zookeeper_ip }}'
+      ZOOKEEPER_PORT: '{{ zookeeper_port }}'
+
+- name: Configure Consumer and DB
+  hosts: consumer
+  become: yes
+  become_user: ec2-user
+  gather_facts: True
+  roles:
+    - db
+    - consumer
+  environment:
+      DB_IP: {{ db_ip }}
+      DB_PORT: {{ db_port }}
+
+- name: Configure producer
+  hosts: producer
+  become: yes
+  become_user: ec2-user
+  gather_facts: True
+  roles:
+    - producer
+  environment:
+      BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
+
+- name: Configure Bot
+  hosts: bot
+  become: yes
+  become_user: ec2-user
+  gather_facts: True
+  roles:
+    - bot
+  environment:
+      BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
+      DB_IP: {{ db_ip }}
+      DB_PORT: {{ db_port }}
