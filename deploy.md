@@ -22,11 +22,11 @@
 </tr>
 </table>
 
-## Deployment
+## Deployment - By provisioning AWS instances
 <b>Prerequisites</b><br>
 
 - Clone bot repository<br>
-	Bot repo url<br>
+	git clone git@github.ncsu.edu:CSC510-Sherlock/Bot.git
 - Install ansible<br>
 	pip install ansible<br>
 - Install python boto library<br>
@@ -48,7 +48,7 @@
 	```
 - Create key-pair in AWS account<br>
 	Create a Key-Pair with name 'syslogbot' for provisioning ec2 instances.<br>
-	Download the .pem file and store it in /Bot/ansible folder<br>
+	Download the .pem file and store it in /Bot/ansible directory<br>
 
 <b>Deployment Scripts</b><br>
 
