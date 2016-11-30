@@ -65,7 +65,7 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
                     bot.reply(message, response);
                 });
             } else {
-
+                    bot.reply(message, "Invalid Query Format!");
             }
         } else if (object.type == "none") {
             bot.reply(message, "Hello! I cannot understand what you want.");
@@ -78,6 +78,9 @@ function processResults(results) {
     var responseMap = {};
     var response = '';
     var arrayLength = results.length;
+    if(arrayLength == 0) {
+      return "No entry returned for this server."
+    }
     for (var i = 0; i < arrayLength; i++) {
         var result = results[i];
         if (responseMap[result[0]] != null) {
