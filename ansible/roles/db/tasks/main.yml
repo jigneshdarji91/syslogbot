@@ -48,3 +48,9 @@
   become: yes
   become_method: sudo
   action: service name=mysql state=restarted enabled=true
+- name: Cloning git repo
+  git: repo={{db_dump_repo}} dest="{{ db_dump_clone_path }}" clone=yes
+- name: Import dummyDataDump 2 in slackBotLog_db
+  mysql_db: name=slackBotLog_db state=import target="{{ db_dump_clone_path }}/dummyDataDump.sql"
+- name: Import dummyDataDump 2 in slackBotLog_db
+  mysql_db: name=slackBotUser_db state=import target="{{ db_dump_clone_path }}/dummyServerInfo.sql"
