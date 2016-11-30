@@ -4,6 +4,7 @@
  * * * * * * * * * * * * * * * * * * * */
 
 var database = require("./db.js");
+var Validator = require("./validator.js");
 var queryResult = '';
 
 /**
@@ -13,7 +14,7 @@ var queryResult = '';
  * @return {QueryResult} result
  */
 function objectToCommand(object, user_name, resultHandler) {
-    if (object.hasOwnProperty('add-server')) {
+    if (object.hasOwnProperty('add-server') && Validator.checkCommandObject(object)) {
         console.log("object: " + JSON.stringify(object));
         console.log("user_name: " + user_name);
         var table_name = "ServerInfo"; // subject to change
@@ -26,11 +27,11 @@ function objectToCommand(object, user_name, resultHandler) {
                 if (key == 'type')
                     continue;
                 if (key == 'add-server') {
-                    ip = object[key]
+                    //ip = object[key]
                     query = query + "," + object[key] + ""
                 }
                 if (key == 'ip') {
-                    alias = object[key]
+                    //alias = object[key]
                     query = query + "," + object[key] + ");"
                 }
             }
@@ -45,7 +46,7 @@ function objectToCommand(object, user_name, resultHandler) {
                 resultHandler('Error adding server.');
             }
         });
-    } else if (object.hasOwnProperty('delete-server')) {
+    } else if (object.hasOwnProperty('delete-server') && Validator.checkCommandObject(object)) {
         console.log("object: " + JSON.stringify(object));
         var table_name = "ServerInfo"; // subject to change
 
@@ -69,11 +70,10 @@ function objectToCommand(object, user_name, resultHandler) {
             else
                 resultHandler('Error deleting server.');
         });
-    }
-    else {
-      console.log("Command Query doesn't have right paramters.");
-      resultHandler('Please Check. Error in Query Format.');
-      return;
+    } else {
+        console.log("Command Query doesn't have right paramters.");
+        resultHandler('Please Check. Error in Query Format.');
+        return;
     }
 }
 

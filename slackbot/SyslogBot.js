@@ -1,6 +1,6 @@
 var slack = require('slack')
 var Parser = require("./parser.js");
-//var Validator = require("./validator.js");
+var Validator = require("./validator.js");
 var QueryGenerator = require("./queryGenerator.js");
 var CommandGenerator = require("./commandGenerator.js");
 var Botkit = require('botkit');
