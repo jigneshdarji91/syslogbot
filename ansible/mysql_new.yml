@@ -39,8 +39,8 @@
     - name: Restart the MySQL service
       action: service name=mysql state=restarted enabled=true
     - name: Cloning git repo
-      git: repo=https://github.com/SaurabhSakpal/SlackBotDumpFiles.git dest=~/SlackBot2 clone=yes
-    - name: Import dummyDataDump in slackBotLog_db
-      mysql_db: name=slackBotLog_db state=import target=~/SlackBot2/dummyDataDump.sql
-    - name: Import dummyDataDump in slackBotLog_db
-      mysql_db: name=slackBotUser_db state=import target=~/SlackBot2/dummyServerInfo.sql
+      git: repo=https://github.com/SaurabhSakpal/SlackBotDumpFiles.git dest="{{ ansible_env.HOME }}/SlackBot" clone=yes
+    - name: Import dummyDataDump 2 in slackBotLog_db
+      mysql_db: name=slackBotLog_db state=import target="{{ ansible_env.HOME }}/SlackBot/dummyDataDump.sql"
+    - name: Import dummyDataDump 2 in slackBotLog_db
+      mysql_db: name=slackBotUser_db state=import target="{{ ansible_env.HOME }}/SlackBot/dummyServerInfo.sql"
