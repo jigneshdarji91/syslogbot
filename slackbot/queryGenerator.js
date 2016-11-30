@@ -24,21 +24,21 @@ function objectToQuery(object) {
                 continue;
             }
 
-            if (!first_entry) {
-                query = query + " AND ";
-            }
-            first_entry = 0;
-
-            query = query + key + " LIKE ";
-
-            for (i = 0; i < object[key].length; i++) {
-                query = query + object[key][i];
-                if (i != object[key].length - 1) {
-                    query = query + " OR ";
+            if (key == 'server' || key == 'log_level') {
+                if (!first_entry) {
+                    query = query + " AND ";
                 }
+                first_entry = 0;
+                query = query + key + " IN (";
+                for (i = 0; i < object[key].length; i++) {
+                    object[key][i] = object[key][i].replace(/[\\\["'\]]/g, "")
+                    query = query + "\"" +object[key][i]+ "\"";
+                    if (i != object[key].length - 1) {
+                        query = query + " , ";
+                    }
+                }
+                query = query + ") "
             }
-            //}
-
         }
     }
 
