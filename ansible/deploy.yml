@@ -7,8 +7,42 @@
   roles:
     - { role: create_instances, group: zookeeper}
 
-- name: Connection to zookeeper
+- name: Create AWS instance
   hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
+  roles:
+    - { role: create_instances, group: broker}
 
-  tasks:
-    - command: ansible-playbook connection.yml -i inventory 
+- name: Create AWS instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
+  roles:
+    - { role: create_instances, group: db}
+
+- name: Create AWS instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
+  roles:
+    - { role: create_instances, group: producer}
+
+- name: Create AWS instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
+  roles:
+    - { role: create_instances, group: consumer}
+
+- name: Create AWS instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: ubuntu
+  roles:
+    - { role: create_instances, group: bot}
