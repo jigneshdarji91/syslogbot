@@ -1,13 +1,13 @@
 ---
 - name: Install nodejs
   become: yes
-  become_method: sudo
+  become_user: root
   apt: name=nodejs state=present
 - name: Install npm
   become: yes
-  become_method: sudo
+  become_user: root
   apt: name=npm state=present
 - name: Symlink nodejs to node
   become: yes
-  become_method: sudo
+  become_user: root
   shell: ln -s "$(which nodejs)" {{node_path}} creates={{node_path}}

@@ -1,5 +1,5 @@
 ---
 - name: Install forever
   become: yes
-  become_method: sudo
+  become_user: root
   npm: name=forever state=present global=yes
