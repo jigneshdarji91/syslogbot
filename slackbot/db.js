@@ -54,16 +54,24 @@ function executeLogQuery(query, resultHandler) {
 
 function executeServerInfoQuery(query, isInsert, resultHandler) {
     var db_connection = getUserDBConnector();
-    db_connection.query(query, function(err, rows, fields) {
+      db_connection.query(query, function(err, rows, fields) {
         console.log(rows);
+        console.log(err.code);
         if (!err) {
             if (rows.affectedRows == 0 && !isInsert) {
                 resultHandler('Error');
             } else {
                 resultHandler('Success');
             }
-        } else
+        } else {
+          if(err.code == 'ER_DUP_ENTRY'){
+            resultHandler('ER_DUP_ENTRY');
+          }
+          else {
             resultHandler('Error');
+          }
+        }
+
     });
     //db_connection.end();
 }
