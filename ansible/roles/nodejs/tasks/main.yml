@@ -2,11 +2,11 @@
 - name: Install nodejs
   become: yes
   become_method: sudo
-  yum: name=nodejs state=present
+  apt: name=nodejs state=present
 - name: Install npm
   become: yes
   become_method: sudo
-  yum: name=npm state=present
+  apt: name=npm state=present
 - name: Symlink nodejs to node
   become: yes
   become_method: sudo

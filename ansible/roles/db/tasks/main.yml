@@ -1,8 +1,8 @@
 ---
 - name: Install MySQL dependencies
   apt: name={{item}} state=present update_cache=true
-  become: true
-  become_user: root
+  become: yes
+  become_method: sudo
   with_items:
     - bundler
     - mysql-server-core-5.5
@@ -12,7 +12,7 @@
     - build-essential
 - name: Install MySQL
   become: yes
-  become_user: root
+  become_method: sudo
   apt: pkg={{item}} state=present
   with_items:
      - mysql-server
