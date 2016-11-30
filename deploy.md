@@ -26,35 +26,35 @@
 <b>Prerequisites</b><br>
 
 - Clone bot repository<br>
-	Bot repo url
-- Install ansible
-	pip install ansible
-- Install python boto library
-	pip install boto
-- Set up the AWS access and secret keys in the environment settings
-	Login to ASW account
-	Go to user > My Security Credentials
-	Create new access key
-	Copy Access Key ID and set up environment variable:
-	```export AWS_ACCESS_KEY_ID={{ AWS_ACCESS_KEY_ID }}```
-	Copy Secret Access Key and set up environment variable:
-	```export AWS_SECRET_ACCESS_KEY={{ AWS_SECRET_ACCESS_KEY }}```
+	Bot repo url<br>
+- Install ansible<br>
+	pip install ansible<br>
+- Install python boto library<br>
+	pip install boto<br>
+- Set up the AWS access and secret keys in the environment settings<br>
+	Login to ASW account<br>
+	Go to user > My Security Credentials<br>
+	Create new access key<br>
+	Copy Access Key ID and set up environment variable:<br>
+	```export AWS_ACCESS_KEY_ID={{ AWS_ACCESS_KEY_ID }}```<br>
+	Copy Secret Access Key and set up environment variable:<br>
+	```export AWS_SECRET_ACCESS_KEY={{ AWS_SECRET_ACCESS_KEY }}```<br>
 
-- Create /boto file and copy following contents to it:
+- Create /boto file and copy following contents to it:<br>
 	```
 	[Credentials]
 	aws_access_key_id = {{ AWS_ACCESS_KEY_ID }}
 	aws_secret_access_key = {{ AWS_SECRET_ACCESS_KEY }}
 	```
-- Create key-pair in AWS account
-	Create a Key-Pair with name 'syslogbot' for provisioning ec2 instances.
-	Download the .pem file and store it in /Bot/ansible folder
+- Create key-pair in AWS account<br>
+	Create a Key-Pair with name 'syslogbot' for provisioning ec2 instances.<br>
+	Download the .pem file and store it in /Bot/ansible folder<br>
 
 <b>Deployment Scripts</b><br>
 
 - Run script to set up aws instances<br>
 	```ansible-playbook deploy.yml```
-- Run scripts for configuring aws instances
+- Run scripts for configuring aws instances<br>
 	```ansible-playbook connection.yml -i inventory```
 
 ## Service Implementation
