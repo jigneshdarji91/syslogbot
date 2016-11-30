@@ -4,7 +4,7 @@ kafka_path: "{{ ansible_env.HOME }}/kafka_2.10-0.10.1.0/"
 bot_repo: https://github.com/jigneshdarji91/syslogbot.git
 bot_repo_clone_path: "{{ ansible_env.HOME }}/Bot/"
 db_dump_repo: https://github.com/SaurabhSakpal/SlackBotDumpFiles.git
-db_dump_clone_path: ""{{ ansible_env.HOME }}/SlackBot/"
+db_dump_clone_path: "{{ ansible_env.HOME }}/SlackBot/"
 zookeeper_port: "2181"
 broker_port: "9092"
 db_port: "3306"
