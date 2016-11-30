@@ -44,8 +44,7 @@ function objectToCommand(object, user_name, resultHandler) {
                 resultHandler('Server added successfully.');
             } else if (data === 'ER_DUP_ENTRY') {
                 resultHandler('Error:  Server entry already present for the User. Please try deleting the entry before adding a new one.');
-            }
-            else {
+            } else {
                 resultHandler('Error adding server.');
             }
         });

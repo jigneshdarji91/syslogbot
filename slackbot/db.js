@@ -54,7 +54,7 @@ function executeLogQuery(query, resultHandler) {
 
 function executeServerInfoQuery(query, isInsert, resultHandler) {
     var db_connection = getUserDBConnector();
-      db_connection.query(query, function(err, rows, fields) {
+    db_connection.query(query, function(err, rows, fields) {
         console.log(rows);
         if (!err) {
             if (rows.affectedRows == 0 && !isInsert) {
@@ -63,12 +63,11 @@ function executeServerInfoQuery(query, isInsert, resultHandler) {
                 resultHandler('Success');
             }
         } else {
-          if(err.code == 'ER_DUP_ENTRY'){
-            resultHandler('ER_DUP_ENTRY');
-          }
-          else {
-            resultHandler('Error');
-          }
+            if (err.code == 'ER_DUP_ENTRY') {
+                resultHandler('ER_DUP_ENTRY');
+            } else {
+                resultHandler('Error');
+            }
         }
 
     });

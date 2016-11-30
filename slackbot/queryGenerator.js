@@ -32,7 +32,7 @@ function objectToQuery(object) {
                 query = query + key + " IN (";
                 for (i = 0; i < object[key].length; i++) {
                     object[key][i] = object[key][i].replace(/[\\\["'\]]/g, "")
-                    query = query + "\"" +object[key][i]+ "\"";
+                    query = query + "\"" + object[key][i] + "\"";
                     if (i != object[key].length - 1) {
                         query = query + " , ";
                     }
