@@ -1,8 +1,8 @@
 ---
 - name: Install MySQL dependencies
-  yum: name={{item}} state=present update_cache=true
   become: yes
-  become_method: sudo
+  become_user: root
+  yum: name={{item}} state=present update_cache=true enablerepo=epel
   with_items:
     - bundler
     - mysql-server-core-5.5
@@ -12,41 +12,41 @@
     - build-essential
 - name: Install MySQL
   become: yes
-  become_method: sudo
+  become_user: root
   yum: pkg={{item}} state=present
   with_items:
      - mysql-server
      - mysql-client
 - name: Remove the MySQL test database
   become: yes
-  become_method: sudo
+  become_user: root
   action: mysql_db db=test state=absent
 - name: Create databases
   become: yes
-  become_method: sudo
+  become_user: root
   mysql_db: name={{item}} state=present collation=utf8_general_ci encoding=utf8
   with_items:
       - slackBotLog_db
       - slackBotUser_db
 - name: Add deploy DB user and allow access to news_* databases
   become: yes
-  become_method: sudo
+  become_user: root
   mysql_user: name={{db_username}} password={{db_password}} host="%" priv=*.*:ALL,GRANT state=present
 - name: Remove a line in my.cnf
   become: yes
-  become_method: sudo
+  become_user: root
   lineinfile: dest=/etc/mysql/my.cnf
               regexp="^bind-address"
               line="bind-address = 192.168.60.10"
               state=absent
 - name: Add a line in my.cnf
   become: yes
-  become_method: sudo
+  become_user: root
   lineinfile: dest=/etc/mysql/my.cnf
               line="bind-address = {{ db_ip }}"
 - name: Restart the MySQL service
   become: yes
-  become_method: sudo
+  become_user: root
   action: service name=mysql state=restarted enabled=true
 - name: Cloning git repo
   git: repo={{db_dump_repo}} dest="{{ db_dump_clone_path }}" clone=yes
