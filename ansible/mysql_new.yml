@@ -39,7 +39,8 @@
     - name: Restart the MySQL service
       action: service name=mysql state=restarted enabled=true
     - name: Cloning git repo
-      git: repo=https://github.ncsu.edu/CSC510-Sherlock/Bot.git dest=/home/vagrant/SlackBot clone=yes
-
-
-      
+      git: repo=https://github.com/SaurabhSakpal/SlackBotDumpFiles.git dest=~/SlackBot2 clone=yes
+    - name: Import dummyDataDump in slackBotLog_db
+      mysql_db: name=slackBotLog_db state=import target=~/SlackBot2/dummyDataDump.sql
+    - name: Import dummyDataDump in slackBotLog_db
+      mysql_db: name=slackBotUser_db state=import target=~/SlackBot2/dummyServerInfo.sql
