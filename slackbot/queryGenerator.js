@@ -45,7 +45,7 @@ function objectToQuery(object) {
     if (count_flag) {
         query = query + " LIMIT " + limit;
     } else {
-        query = query + " LIMIT " + limit;
+        query = query + " LIMIT " + 50;
     }
 
     console.log("Final query is :" + query);
