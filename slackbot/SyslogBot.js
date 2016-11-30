@@ -1,5 +1,6 @@
 var slack = require('slack')
 var Parser = require("./parser.js");
+//var Validator = require("./validator.js");
 var QueryGenerator = require("./queryGenerator.js");
 var CommandGenerator = require("./commandGenerator.js");
 var Botkit = require('botkit');
@@ -17,7 +18,7 @@ var controller = Botkit.slackbot({
 controller.spawn({
     //token: process.env.ALTCODETOKEN,
     //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
-    token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+    token: 'xoxb-110602882690-GIWy4kg1CCHNT51GMVEzp1EO',
 }).startRTM()
 
 // give the bot something to listen for.
@@ -28,7 +29,7 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
     var getUserName = function(callback) {
         slack.users.info({
             //token: process.env.ALTCODETOKEN,
-            token: 'xoxb-94215756851-njVdzQfDvGlb9eQJHDy4dG1D',
+            token: 'xoxb-110602882690-GIWy4kg1CCHNT51GMVEzp1EO',
             //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
             user: message.user
         }, (err, data) => {
