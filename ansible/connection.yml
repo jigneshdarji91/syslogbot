@@ -1,0 +1,13 @@
+- name: Configure Zookeeper
+  hosts: zookeeper
+  become: yes
+  become_user: ec2-user
+  gather_facts: True
+  roles:
+    - zookeeper
+  environment:
+      BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
+      ZOOKEEPER_SOCKET: '{{ zookeeper_ip }}:{{ zookeeper_port }}'
+      DB_IP: '{{ db_ip }}'
+      DB_PORT: '{{ db_port }}'
+      DB_SOCKET: '{{ db_ip }}:{{ db_port }}'

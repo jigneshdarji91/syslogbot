@@ -7,15 +7,8 @@
   roles:
     - { role: create_instances, group: zookeeper}
 
-- name: Configure Zookeeper
-  hosts: zookeeper
-  sudo: True
-  gather_facts: True
-  roles:
-    - zookeeper
-  environment:
-      BROKER_SOCKET: '{{ broker_ip }}:{{ broker_port }}'
-      ZOOKEEPER_SOCKET: '{{ zookeeper_ip }}:{{ zookeeper_port }}'
-      DB_IP: '{{ db_ip }}'
-      DB_PORT: '{{ db_port }}'
-      DB_SOCKET: '{{ db_ip }}:{{ db_port }}'
+- name: Connection to zookeeper
+  hosts: localhost
+
+  tasks:
+    - command: ansible-playbook connection.yml -i inventory 
