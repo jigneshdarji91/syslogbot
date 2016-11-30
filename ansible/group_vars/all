@@ -5,9 +5,6 @@ bot_repo: https://github.com/jigneshdarji91/syslogbot.git
 bot_repo_clone_path: "{{ ansible_env.HOME }}/Bot/"
 db_dump_repo: https://github.com/SaurabhSakpal/SlackBotDumpFiles.git
 db_dump_clone_path: ""{{ ansible_env.HOME }}/SlackBot/"
-zookeeper_ip: "ZKIP"
-zookeeper_port: "ZKPORT"
-broker_ip: "BROKERIP"
-broker_port: "BROKERPORT"
-db_ip: "152.46.16.104"
-db_port: "DB_PORT"
+zookeeper_port: "2181"
+broker_port: "9092"
+db_port: "3306"
