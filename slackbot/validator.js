@@ -58,6 +58,7 @@ function shouldExecuteQuery(obj) {
 }
 
 function validateUser(obj, userName) {
+  console.log("Check if User is authorised");
   if (obj.hasOwnProperty('server')) {
     ipaddress = obj['server']
     for (i = 0; i < ipaddress.length; i++) {
@@ -66,7 +67,6 @@ function validateUser(obj, userName) {
         console.log(ip);
         var query = QueryGenerator.generateSearchQuery(ip, userName);
         SyslogDB.executeUserServerMappingQuery(query, function(result) {
-
         });
       }
 
