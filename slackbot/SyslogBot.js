@@ -16,9 +16,7 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
-    //token: process.env.ALTCODETOKEN,
-    //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
-    token: 'xoxb-111859057927-hifO6piZ0DEy1JoCTjDSPhvf',
+    token: process.env.ALTCODETOKEN
 }).startRTM()
 
 // give the bot something to listen for.
@@ -28,9 +26,7 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
     // Function to get user name
     var getUserName = function(callback) {
         slack.users.info({
-            //token: process.env.ALTCODETOKEN,
-            token: 'xoxb-111859057927-hifO6piZ0DEy1JoCTjDSPhvf',
-            //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
+            token: process.env.ALTCODETOKEN
             user: message.user
         }, (err, data) => {
             if (err) throw err
