@@ -4,7 +4,7 @@ import json
 from db_connection import *
 import os
 
-BROKER_SOCKET=os.env['BROKER_SOCKET']
+BROKER_SOCKET=os.environ.get('BROKER_SOCKET')
 
 parser = Parser()
 cnx = openConnection()

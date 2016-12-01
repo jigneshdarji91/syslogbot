@@ -5,7 +5,7 @@ import json
 import socket
 import os
 
-BROKER_SOCKET=os.env['BROKER_SOCKET']
+BROKER_SOCKET=os.environ.get('BROKER_SOCKET')
 
 
 producer = Producer(bootstrap_servers=BROKER_SOCKET)

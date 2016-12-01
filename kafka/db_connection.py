@@ -3,8 +3,8 @@ from time import gmtime, strftime
 import re
 import os
 
-DB_IP = os.env['DB_IP']
-DB_PORT = os.env['DB_PORT']
+DB_IP = os.environ.get('DB_IP')
+DB_PORT = os.environ.get('DB_PORT')
 
 config = {
         'host': DB_IP,
