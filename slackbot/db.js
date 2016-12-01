@@ -76,7 +76,7 @@ function executeServerInfoQuery(query, isInsert, resultHandler) {
 function executeUserServerMappingQuery(query, resultHandler) {
     var db_connection = getUserDBConnector();
     db_connection.query(query, function(err, rows, fields) {
-      
+        
     });
 }
 

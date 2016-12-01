@@ -57,18 +57,17 @@ function shouldExecuteQuery(obj) {
 
 }
 
-function validateUser(obj, userName) {
+function validateUser(obj, userName, ) {
   console.log("Check if User is authorised");
   if (obj.hasOwnProperty('server')) {
     ipaddress = obj['server']
     for (i = 0; i < ipaddress.length; i++) {
-        ip = ipaddress[i]
-        ip = ip.replace(/[\\\["'\]]/g, "");
-        console.log(ip);
-        var query = QueryGenerator.generateSearchQuery(ip, userName);
-        SyslogDB.executeUserServerMappingQuery(query, function(result) {
-        });
+        ipaddress[i] = ipaddress[i].replace(/[\\\["'\]]/g, "");
       }
+      var query = QueryGenerator.generateSearchQuery(ipaddress, userName);
+      SyslogDB.executeUserServerMappingQuery(query, function(result) {
+
+      });
 
   }
   else {

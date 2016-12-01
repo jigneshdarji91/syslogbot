@@ -53,7 +53,16 @@ function objectToQuery(object) {
 }
 
 function generateSearchQuery(ip, username) {
-    var query = "SELECT * FROM ServerInfo WHERE userName IN (\"" + username + "\") AND serverIp IN (\"" + ip + "\")";
+    var query = "SELECT * FROM ServerInfo WHERE userName IN (\"" + username + "\") AND serverIp IN (";
+    for (i = 0; i < ip.length; i++) {
+        ip[i] = ip[i].replace(/[\\\["'\]]/g, "")
+        query = query + "\"" + ip[i] + "\"";
+        if (i != ip.length - 1) {
+            query = query + " , ";
+        }
+    }
+    query = query + ") "
+    console.log(query);
     return query;
 }
 
