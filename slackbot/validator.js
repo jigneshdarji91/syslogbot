@@ -57,7 +57,7 @@ function shouldExecuteQuery(obj) {
 
 }
 
-function validateUser(obj, userName, ) {
+function validateUserAndExecuteQuery(obj, userName, logDbQuery, executeDBQuery) {
   console.log("Check if User is authorised");
   if (obj.hasOwnProperty('server')) {
     ipaddress = obj['server']
@@ -65,8 +65,9 @@ function validateUser(obj, userName, ) {
         ipaddress[i] = ipaddress[i].replace(/[\\\["'\]]/g, "");
       }
       var query = QueryGenerator.generateSearchQuery(ipaddress, userName);
-      SyslogDB.executeUserServerMappingQuery(query, function(result) {
-
+      SyslogDB.executeUserServerMappingQuery(query, ipaddress, function(result) {
+          console.log("Is User Authorised? " + result);
+          executeDBQuery(logDbQuery, result);
       });
 
   }
@@ -80,5 +81,5 @@ function validateUser(obj, userName, ) {
 module.exports = {
     checkCommandObject: checkCommandObject,
     shouldExecuteQuery: shouldExecuteQuery,
-    validateUser: validateUser
+    validateUserAndExecuteQuery: validateUserAndExecuteQuery
 }

@@ -18,7 +18,7 @@ var controller = Botkit.slackbot({
 controller.spawn({
     //token: process.env.ALTCODETOKEN,
     //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
-    token: 'xoxb-110602882690-GIWy4kg1CCHNT51GMVEzp1EO',
+    token: 'xoxb-111859057927-hifO6piZ0DEy1JoCTjDSPhvf',
 }).startRTM()
 
 // give the bot something to listen for.
@@ -29,7 +29,7 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
     var getUserName = function(callback) {
         slack.users.info({
             //token: process.env.ALTCODETOKEN,
-            token: 'xoxb-110602882690-GIWy4kg1CCHNT51GMVEzp1EO',
+            token: 'xoxb-111859057927-hifO6piZ0DEy1JoCTjDSPhvf',
             //token: 'xoxb-75374271524-fwzEOXBewL0QjlqakHot2z8k',
             user: message.user
         }, (err, data) => {
@@ -56,19 +56,24 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
         } else if (object.type == "query" || object.type == "monitor" || object.type == "summary") {
             var query = QueryGenerator.objectToQuery(object);
             if (Validator.shouldExecuteQuery(object)) {
-                if (Validator.validateUser(object, userName)) {
-                    SyslogDB.executeLogQuery(query, function(result) {
-                        console.log("query results: " + result);
-                        var response = 'Error finding the requested Data';
-                        if (result != null) {
-                            response = processResults(result);
-                        }
-                        bot.reply(message, response);
-                    });
-                } else {
-                    bot.reply(message, "User not authorised to query the server!");
-                    return;
+                var executeDBQuery = function(query, isAuthorized) {
+                    if(isAuthorized) {
+                      SyslogDB.executeLogQuery(query, function(result) {
+                          console.log("query results: " + result);
+                          var response = 'Error finding the requested Data';
+                          if (result != null) {
+                              response = processResults(result);
+                          }
+                          bot.reply(message, response);
+                      });
+                    }
+                    else {
+                      bot.reply(message, "You are not authorised to query the servers in the following query");
+                      return;
+                    }
+
                 }
+                Validator.validateUserAndExecuteQuery(object, userName, query, executeDBQuery);
             } else {
                 bot.reply(message, "Invalid Query Format!");
                 return;

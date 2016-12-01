@@ -73,10 +73,22 @@ function executeServerInfoQuery(query, isInsert, resultHandler) {
 }
 
 
-function executeUserServerMappingQuery(query, resultHandler) {
+function executeUserServerMappingQuery(query, listOfIp, resultHandler) {
     var db_connection = getUserDBConnector();
     db_connection.query(query, function(err, rows, fields) {
-        
+         var flag1 = true;
+          for(i = 0; i < listOfIp.length; i++) {
+              var flag2 = false;
+              for(j = 0; j< rows.length; j++) {
+                console.log("Inside validation loop");
+                  if(rows[j].serverIp == listOfIp[i]) {
+                    flag2 = true;
+                    console.log("Match Found : "+rows[j].serverIp);
+                  }
+              }
+              flag1 = flag1 && flag2;
+          }
+          resultHandler(flag1);
     });
 }
 
