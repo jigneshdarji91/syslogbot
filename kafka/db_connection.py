@@ -11,7 +11,6 @@ config = {
         'port': DB_PORT,
         'database': 'slackBotLog_db',
         'user': 'root',
-        'password': 'syslogbot',
         'charset': 'utf8',
         'use_unicode': True,
         'get_warnings': True,
