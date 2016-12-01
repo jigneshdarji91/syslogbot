@@ -1,3 +1,9 @@
 ---
+- name: Provide Zookeeper Info
+  lineinfile:
+      dest: "{{ kafka_path }}/config/server.properties"
+      regexp: "^zookeeper.connect=local"
+      line: "zookeeper.connect={{zookeeper_ip}}:{{zookeeper_port}}"
+      state: present
 - name: Run Kafka server
   command: bin/kafka-server-start.sh -daemon config/server.properties chdir={{kafka_path}}
