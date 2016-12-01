@@ -52,6 +52,12 @@ function objectToQuery(object) {
     return query;
 }
 
+function generateSearchQuery(ip, username) {
+    var query = "SELECT * FROM ServerInfo WHERE userName IN (\"" + username + "\") AND serverIp IN (\"" + ip + "\")";
+    return query;
+}
+
 module.exports = {
-    objectToQuery: objectToQuery
+    objectToQuery: objectToQuery,
+    generateSearchQuery : generateSearchQuery
 }

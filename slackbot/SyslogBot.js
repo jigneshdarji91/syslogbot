@@ -56,16 +56,22 @@ controller.hears('(.*)', ['direct_mention', 'direct_message', 'weather'], functi
         } else if (object.type == "query" || object.type == "monitor" || object.type == "summary") {
             var query = QueryGenerator.objectToQuery(object);
             if (Validator.shouldExecuteQuery(object)) {
-                SyslogDB.executeLogQuery(query, function(result) {
-                    console.log("query results: " + result);
-                    var response = 'Error finding the requested Data';
-                    if (result != null) {
-                        response = processResults(result);
-                    }
-                    bot.reply(message, response);
-                });
+                if (Validator.validateUser(object, userName)) {
+                    SyslogDB.executeLogQuery(query, function(result) {
+                        console.log("query results: " + result);
+                        var response = 'Error finding the requested Data';
+                        if (result != null) {
+                            response = processResults(result);
+                        }
+                        bot.reply(message, response);
+                    });
+                } else {
+                    bot.reply(message, "User not authorised to query the server!");
+                    return;
+                }
             } else {
-                    bot.reply(message, "Invalid Query Format!");
+                bot.reply(message, "Invalid Query Format!");
+                return;
             }
         } else if (object.type == "none") {
             bot.reply(message, "Hello! I cannot understand what you want.");
@@ -78,8 +84,8 @@ function processResults(results) {
     var responseMap = {};
     var response = '';
     var arrayLength = results.length;
-    if(arrayLength == 0) {
-      return "No entry returned for this server."
+    if (arrayLength == 0) {
+        return "No entry returned for this server."
     }
     for (var i = 0; i < arrayLength; i++) {
         var result = results[i];
